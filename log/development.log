@@ -1,0 +1,197 @@
+Started GET "/" for ::1 at 2025-03-06 10:13:02 -0400
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='GestaoFinanceira'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='GestaoFinanceira'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='GestaoFinanceira'*/[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-8.0.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-8.0.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 2.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 3.2ms)
+
+
+Started GET "/" for ::1 at 2025-03-06 10:19:52 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 12ms (Views: 2.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.3ms)
+
+
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (4.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-03-06 14:43:42.829992', '2025-03-06 14:43:42.829994') RETURNING "key" /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+Migrating to CriarUsuarios (20250306144328)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250306144328') RETURNING "version" /*application:GestaoFinanceira*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+Started GET "/" for ::1 at 2025-03-06 10:43:57 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 9ms (Views: 1.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/info/routes" for ::1 at 2025-03-06 10:44:01 -0400
+Processing by Rails::InfoController#routes as HTML
+  Rendering layout /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/layouts/application.html.erb
+  Rendering /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/rails/info/routes.html.erb within layouts/application
+  Rendered collection of /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/actionpack-7.2.2.1/lib/action_dispatch/middleware/templates/routes/_route.html.erb [28 times] (Duration: 5.4ms | GC: 0.0ms)
+  Rendered /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/actionpack-7.2.2.1/lib/action_dispatch/middleware/templates/routes/_table.html.erb (Duration: 5.8ms | GC: 4.8ms)
+  Rendered /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/rails/info/routes.html.erb within layouts/application (Duration: 12.5ms | GC: 4.8ms)
+  Rendered layout /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/layouts/application.html.erb (Duration: 12.8ms | GC: 4.8ms)
+Completed 200 OK in 17ms (Views: 13.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 4.8ms)
+
+
+Started GET "/rails/info/routes" for ::1 at 2025-03-06 10:44:02 -0400
+Processing by Rails::InfoController#routes as HTML
+  Rendering layout /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/layouts/application.html.erb
+  Rendering /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/rails/info/routes.html.erb within layouts/application
+  Rendered collection of /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/actionpack-7.2.2.1/lib/action_dispatch/middleware/templates/routes/_route.html.erb [28 times] (Duration: 7.6ms | GC: 1.1ms)
+  Rendered /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/actionpack-7.2.2.1/lib/action_dispatch/middleware/templates/routes/_table.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/rails/info/routes.html.erb within layouts/application (Duration: 10.5ms | GC: 2.2ms)
+  Rendered layout /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/layouts/application.html.erb (Duration: 10.6ms | GC: 2.2ms)
+Completed 200 OK in 18ms (Views: 10.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 2.2ms)
+
+
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+Migrating to CreateUsuarios (20250306144641)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "usuarios" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "email" varchar, "senha" varchar, "status" integer, "perfil" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250306144641') RETURNING "version" /*application:GestaoFinanceira*/[0m
+  [1m[36mTRANSACTION (5.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+Started GET "/rails/info/routes" for ::1 at 2025-03-06 10:46:57 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+Processing by Rails::InfoController#routes as HTML
+  Rendering layout /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/layouts/application.html.erb
+  Rendering /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/rails/info/routes.html.erb within layouts/application
+  Rendered collection of /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/actionpack-7.2.2.1/lib/action_dispatch/middleware/templates/routes/_route.html.erb [28 times] (Duration: 3.7ms | GC: 0.1ms)
+  Rendered /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/actionpack-7.2.2.1/lib/action_dispatch/middleware/templates/routes/_table.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/rails/info/routes.html.erb within layouts/application (Duration: 5.0ms | GC: 0.1ms)
+  Rendered layout /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/layouts/application.html.erb (Duration: 5.2ms | GC: 0.1ms)
+Completed 200 OK in 9ms (Views: 5.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/rails/info/routes" for ::1 at 2025-03-06 10:47:05 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+Processing by Rails::InfoController#routes as HTML
+  Rendering layout /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/layouts/application.html.erb
+  Rendering /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/rails/info/routes.html.erb within layouts/application
+  Rendered collection of /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/actionpack-7.2.2.1/lib/action_dispatch/middleware/templates/routes/_route.html.erb [28 times] (Duration: 2.9ms | GC: 0.0ms)
+  Rendered /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/actionpack-7.2.2.1/lib/action_dispatch/middleware/templates/routes/_table.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/rails/info/routes.html.erb within layouts/application (Duration: 4.5ms | GC: 0.0ms)
+  Rendered layout /home/dagliana-farias/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.2.2.1/lib/rails/templates/layouts/application.html.erb (Duration: 4.7ms | GC: 0.0ms)
+Completed 200 OK in 13ms (Views: 5.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+Migrating to CreateUnidadeFamiliar (20250306152122)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "unidade_familiars" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "descricao" varchar, "status" integer, "categoria" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250306152122') RETURNING "version" /*application:GestaoFinanceira*/[0m
+  [1m[36mTRANSACTION (4.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+Migrating to CreateUnidadeFamiliar (20250306152122)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "unidade_familiars" /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Destroy (0.0ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20250306152122' /*application:GestaoFinanceira*/[0m
+  [1m[36mTRANSACTION (6.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+Migrating to CreateUsuarios (20250306144641)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "usuarios" /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Destroy (0.0ms)[0m  [1m[31mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20250306144641' /*application:GestaoFinanceira*/[0m
+  [1m[36mTRANSACTION (6.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+Migrating to CreateUsuarios (20250306144641)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "usuarios" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "email" varchar, "senha" varchar, "status" integer, "perfil" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250306144641') RETURNING "version" /*application:GestaoFinanceira*/[0m
+  [1m[36mTRANSACTION (4.6ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateUnidadeFamiliar (20250306171242)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "unidade_familiares" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "descricao" varchar, "status" integer, "categoria" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250306171242') RETURNING "version" /*application:GestaoFinanceira*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+Migrating to AddUnidadeFamiliarToUsuarios (20250307132811)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "ausuarios" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "email" varchar, "senha" varchar, "status" integer, "perfil" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "ausuarios" ("id","nome","email","senha","status","perfil","created_at","updated_at")
+                     SELECT "id","nome","email","senha","status","perfil","created_at","updated_at" FROM "usuarios" /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "usuarios" /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "usuarios" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "email" varchar, "senha" varchar, "status" integer, "perfil" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "unidade_familiar_id" integer NOT NULL) /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "usuarios" ("id","nome","email","senha","status","perfil","created_at","updated_at")
+                     SELECT "id","nome","email","senha","status","perfil","created_at","updated_at" FROM "ausuarios" /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "ausuarios" /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_usuarios_on_unidade_familiar_id" ON "usuarios" ("unidade_familiar_id") /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "ausuarios" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "email" varchar, "senha" varchar, "status" integer, "perfil" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "unidade_familiar_id" integer NOT NULL) /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_ausuarios_on_unidade_familiar_id" ON "ausuarios" ("unidade_familiar_id") /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "ausuarios" ("id","nome","email","senha","status","perfil","created_at","updated_at","unidade_familiar_id")
+                     SELECT "id","nome","email","senha","status","perfil","created_at","updated_at","unidade_familiar_id" FROM "usuarios" /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "usuarios" /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "usuarios" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "email" varchar, "senha" varchar, "status" integer, "perfil" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "unidade_familiar_id" integer NOT NULL, CONSTRAINT "fk_rails_e8f6a4a556"
+FOREIGN KEY ("unidade_familiar_id")
+  REFERENCES "unidade_familiares" ("id")
+) /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_usuarios_on_unidade_familiar_id" ON "usuarios" ("unidade_familiar_id") /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "usuarios" ("id","nome","email","senha","status","perfil","created_at","updated_at","unidade_familiar_id")
+                     SELECT "id","nome","email","senha","status","perfil","created_at","updated_at","unidade_familiar_id" FROM "ausuarios" /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "ausuarios" /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250307132811') RETURNING "version" /*application:GestaoFinanceira*/[0m
+  [1m[36mTRANSACTION (4.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+Migrating to CreateOrcamentos (20250307141059)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "orcamentos" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "unidade_familiar_id" integer NOT NULL, "categoria" varchar, "status" integer, "descricao" varchar, "valorEstimado" float, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_8152bb0124"
+FOREIGN KEY ("unidade_familiar_id")
+  REFERENCES "unidade_familiares" ("id")
+) /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_orcamentos_on_unidade_familiar_id" ON "orcamentos" ("unidade_familiar_id") /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250307141059') RETURNING "version" /*application:GestaoFinanceira*/[0m
+  [1m[36mTRANSACTION (4.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
+Migrating to CreateReceitas (20250307153237)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "receitas" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "usuario_id" integer NOT NULL, "valor" decimal, "descricao" text, "dataEntrada" date, "dataEncerramento" date, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_89b8e9e774"
+FOREIGN KEY ("usuario_id")
+  REFERENCES "usuarios" ("id")
+) /*application:GestaoFinanceira*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_receitas_on_usuario_id" ON "receitas" ("usuario_id") /*application:GestaoFinanceira*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250307153237') RETURNING "version" /*application:GestaoFinanceira*/[0m
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application:GestaoFinanceira*/[0m
