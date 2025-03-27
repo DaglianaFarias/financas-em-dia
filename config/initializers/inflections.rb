@@ -1,14 +1,3 @@
-# encoding: utf-8
-# Be sure to restart your server when you modify this file.
-
-# Add new inflection rules using the following format
-# (all these examples are active by default):
-# ActiveSupport::Inflector.inflections do |inflect|
-#   inflect.plural /^(ox)$/i, '\1en'
-#   inflect.singular /^(ox)en/i, '\1'
-#   inflect.irregular 'person', 'people'
-#   inflect.uncountable %w( fish sheep )
-# end
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.clear
 
@@ -32,6 +21,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.plural(/ao$/i,  'oes')
   inflect.plural(/^(irm|m)ao$/i,  '\1aos')
   inflect.plural(/^(alem|c|p)ao$/i,  '\1aes')
+  inflect.plural(/^m(ã|a)o$/i, 'm\1os')
 
   inflect.singular(/([^ê])s$/i, '\1')
   inflect.singular(/^(á|gá|paí)s$/i, '\1s')
@@ -46,16 +36,23 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.singular(/^(.*[^s]s)es$/i, '\1')
   inflect.singular(/ães$/i, 'ão')
   inflect.singular(/aes$/i, 'ao')
-  inflect.singular(/ãos$/i, 'ão')    
+  inflect.singular(/ãos$/i, 'ão')
   inflect.singular(/aos$/i, 'ao')
   inflect.singular(/ões$/i, 'ão')
   inflect.singular(/oes$/i, 'ao')
   inflect.singular(/(japon|escoc|ingl|dinamarqu|fregu|portugu)eses$/i, '\1ês')
   inflect.singular(/^(g|)ases$/i,  '\1ás')
+  inflect.singular(/^t(ê|e)nis$/i, 't\1nis')
+  inflect.singular(/^(ó|o)culos$/i, '\1culos')
+  inflect.singular(/^fases$/i, 'fase')
+  inflect.singular(/^m(ê|e)s$/i, 'm\1ses')
+  inflect.singular(/^l(á|a)pis$/i, 'l\1pis')
 
   # Incontáveis
   inflect.uncountable %w( tórax tênis ônibus lápis fênix )
 
   # Irregulares
-  inflect.irregular "país", "países"
+  inflect.irregular 'país', 'países'
+  inflect.irregular 'synonym', 'synonyms'
+  inflect.irregular 'area_projeto', 'areas_projetos'
 end

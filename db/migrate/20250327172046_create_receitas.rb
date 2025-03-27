@@ -2,7 +2,7 @@ class CreateReceitas < ActiveRecord::Migration[7.2]
   def change
     create_table :receitas do |t|
       t.references :usuario, null: false, foreign_key: true
-      t.decimal :valor
+      t.float :valor
       t.text :descricao
       t.date :dataEntrada
       t.date :dataEncerramento

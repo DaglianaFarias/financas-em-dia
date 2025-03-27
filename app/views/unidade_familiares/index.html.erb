@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Unidade familiares" %>
+
+<h1>Unidade familiares</h1>
+
+<div id="unidade_familiares">
+  <% @unidade_familiares.each do |unidade_familiar| %>
+    <%= render unidade_familiar %>
+    <p>
+      <%= link_to "Show this unidade familiar", unidade_familiar %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New unidade familiar", new_unidade_familiar_path %>

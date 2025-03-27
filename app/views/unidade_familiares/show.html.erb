@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @unidade_familiar %>
+
+<div>
+  <%= link_to "Edit this unidade familiar", edit_unidade_familiar_path(@unidade_familiar) %> |
+  <%= link_to "Back to unidade familiares", unidade_familiares_path %>
+
+  <%= button_to "Destroy this unidade familiar", @unidade_familiar, method: :delete %>
+</div>
