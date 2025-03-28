@@ -1,0 +1,17 @@
+
+<%= simple_form_for(@orcamento) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.association :unidade_familiar %>
+    <%= f.input :categoria %>
+    <%= f.input :status %>
+    <%= f.input :descricao %>
+    <%= f.input :valorEstimado %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

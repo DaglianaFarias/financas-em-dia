@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  orcamento: one
+  forma_pagamento: one
+  descricao: MyText
+  categoria: 1
+  data_gasto: 2025-03-28
+  valor: 1.5
+  status: 1
+  quantidade_parcelas: 1
+  parcela_atual: 1
+  dia_vencimento: 1
+  data_vencimento: 2025-03-28
+  alertar_vencimento: false
+
+two:
+  orcamento: two
+  forma_pagamento: two
+  descricao: MyText
+  categoria: 1
+  data_gasto: 2025-03-28
+  valor: 1.5
+  status: 1
+  quantidade_parcelas: 1
+  parcela_atual: 1
+  dia_vencimento: 1
+  data_vencimento: 2025-03-28
+  alertar_vencimento: false

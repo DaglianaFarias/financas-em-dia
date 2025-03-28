@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  usuario: one
+  nome: MyString
+  descricao: MyText
+  tipo: 1
+  vencimento_fatura: 2025-03-28
+  fechamento_fatura: 2025-03-28
+  status: 1
+  categoria: 1
+
+two:
+  usuario: two
+  nome: MyString
+  descricao: MyText
+  tipo: 1
+  vencimento_fatura: 2025-03-28
+  fechamento_fatura: 2025-03-28
+  status: 1
+  categoria: 1

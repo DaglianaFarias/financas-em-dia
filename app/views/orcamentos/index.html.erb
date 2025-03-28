@@ -1,0 +1,19 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="d-flex justify-content-between align-items-center card-item">
+  <div>
+    <h5>Orçamentos</h5>
+    <p>Total: <%= @orcamentos.size %></p>
+  </div>
+  <div>
+    <%= link_to "Criar orçamento", new_orcamento_path, class: 'btn btn-sm btn-primary' %>
+  </div>
+</div>
+
+
+<div id="orcamentos" class="d-flex flex-wrap">
+  <% @orcamentos.each do |orcamento| %>
+    <%= render orcamento %>
+  <% end %>
+</div>
+
