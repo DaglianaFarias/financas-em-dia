@@ -1,10 +1,11 @@
-<nav>
-  <ul>
-    <li>Unidade Familiar: <%= UnidadeFamiliar&.first&.nome %></li><hr> <!-- ajustar -->
-    <li><%= link_to 'Área administrativa', root_path %></li><hr>
-    <li><%= link_to 'Visão geral', root_path %></li>
-    <li><%= link_to 'Orçamentos', orcamentos_path %></li>
-    <li><%= link_to 'Receitas', receitas_path %></li>
-    <li><%= link_to 'Usuários', usuarios_path %></li>
+<nav class="p-3">
+  <ul class="list-unstyled">
+    <li class="fw-bold mb-2">Unidade Familiar: <%= UnidadeFamiliar.first&.nome || "Não definida" %></li>
+    <hr class="border-light">
+    <li><%= link_to 'Área administrativa', root_path, class: "nav-link p-2 d-block" %></li>
+    <li><%= link_to 'Visão geral', root_path, class: "nav-link p-2 d-block" %></li>
+    <li><%= link_to 'Orçamentos', orcamentos_path, class: "nav-link p-2 d-block" %></li>
+    <li><%= link_to 'Receitas', receitas_path, class: "nav-link p-2 d-block" %></li>
+    <li><%= link_to 'Usuários', usuarios_path, class: "nav-link p-2 d-block" %></li>
   </ul>
 </nav>
