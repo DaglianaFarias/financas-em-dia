@@ -3,17 +3,36 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.association :unidade_familiar %>
-    <%= f.input :nome %>
-    <%= f.input :email %>
-    <%= f.input :senha %>
-    <%= f.input :status %>
-    <%= f.input :perfil %>
-    <%= f.input :receber_alerta %>
-  </div>
+  <div class="card">
+    <div class="card-body">
+      <%= f.input :nome %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :email %>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :senha %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.label :status, "Status" %>
+          <%= f.select :status, Usuario.status.keys.map { |status| [status.humanize, status] }, {}, class: "form-control" %>
+        </div>
+        <div class="col-md-6">
+          <%= f.label :perfil, "Perfil" %>
+          <%= f.select :perfil, Usuario.perfis.keys.map { |status| [status.humanize, status] }, {}, class: "form-control" %>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :receber_alerta %>
+        </div>
+      </div>
+    </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+    <div class="card-footer">
+      <%= f.button :submit, "Salvar", class: 'btn btn-sm btn-primary' %>
+    </div>
   </div>
 <% end %>

@@ -1,27 +1,23 @@
 class UsuariosController < ApplicationController
   before_action :set_usuario, only: %i[ show edit update destroy ]
 
-  # GET /usuarios or /usuarios.json
   def index
     @usuarios = Usuario.all
   end
 
-  # GET /usuarios/1 or /usuarios/1.json
   def show
   end
 
-  # GET /usuarios/new
   def new
     @usuario = Usuario.new
   end
 
-  # GET /usuarios/1/edit
   def edit
   end
 
-  # POST /usuarios or /usuarios.json
   def create
     @usuario = Usuario.new(usuario_params)
+    @usuario.unidade_familiar = UnidadeFamiliar.first #ajustar
 
     respond_to do |format|
       if @usuario.save
@@ -34,7 +30,6 @@ class UsuariosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /usuarios/1 or /usuarios/1.json
   def update
     respond_to do |format|
       if @usuario.update(usuario_params)
@@ -47,7 +42,6 @@ class UsuariosController < ApplicationController
     end
   end
 
-  # DELETE /usuarios/1 or /usuarios/1.json
   def destroy
     @usuario.destroy!
 
@@ -58,12 +52,10 @@ class UsuariosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_usuario
       @usuario = Usuario.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def usuario_params
       params.require(:usuario).permit(:unidade_familiar_id, :nome, :email, :senha, :status, :perfil, :receber_alerta)
     end

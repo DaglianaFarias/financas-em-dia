@@ -1,16 +1,36 @@
 <p style="color: green"><%= notice %></p>
 
-<% content_for :title, "Usuarios" %>
+<%= render 'shared/card_info', titulo: 'Usuários', total_itens: @usuarios.size, link_text: "Cadastrar usuário", link_url: new_usuario_path %>
 
-<h1>Usuarios</h1>
-
-<div id="usuarios">
-  <% @usuarios.each do |usuario| %>
-    <%= render usuario %>
-    <p>
-      <%= link_to "Show this usuario", usuario %>
-    </p>
-  <% end %>
+<div id="usuarios" class="card">
+  <div class="card-body">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">E-mail</th>
+          <th scope="col">Status</th>
+          <th scope="col">Receber alerta de contas?</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @usuarios.each do |usuario| %>
+          <tr>
+            <th><%= usuario.nome %></th>
+            <td><%= usuario.email %></td>
+            <td>
+              <span class="badge text-bg-<%= usuario.ativo? ? 'success' : 'danger' %>">
+                <%= usuario.status %>
+              </span>
+            </td>
+            <td><%= usuario.receber_alerta? ? 'Sim' : 'Não' %></td>
+            <td>
+              <%= link_to 'Editar', edit_usuario_path(usuario), class: 'btn btn-sm btn-secondary' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-<%= link_to "New usuario", new_usuario_path %>

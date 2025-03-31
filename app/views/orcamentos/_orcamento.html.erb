@@ -1,8 +1,8 @@
-<div id="<%= dom_id orcamento %>" class="card-item d-flex col-12 col-sm-6 col-md-3">
-  <div class="d-flex justify-content-between w-100 align-items-center">
+<div id="<%= dom_id orcamento %>" class="card-item card-orcamento d-flex col-12 col-sm-6 col-md-3">
+  <div class="d-flex justify-content-between w-100 align-items-center" style="padding: 10px">
     <div>
       <h6><strong><%= orcamento&.categoria %></strong></h6>
-      <p style="font-size: 14px"><%= orcamento.descricao %></p>
+      <p style="font-size: 14px"><%= orcamento.descricao&.truncate(50) %></p>
     </div>
     <div>
       <h6>R$ <%= orcamento.valorEstimado %></h6>
