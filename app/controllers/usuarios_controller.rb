@@ -3,6 +3,7 @@ class UsuariosController < ApplicationController
 
   def index
     @usuarios = Usuario.all
+    @receita = Receita.new
   end
 
   def show

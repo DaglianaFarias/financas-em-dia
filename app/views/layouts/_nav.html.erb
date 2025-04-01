@@ -1,11 +1,29 @@
 <nav class="p-3">
   <ul class="list-unstyled">
-    <li class="fw-bold mb-2">Unidade Familiar: <%= UnidadeFamiliar.first&.nome || "Não definida" %></li>
+    <li class="fw-bold mb-2">
+      <i class="fa-solid fa-house-user fa-fw me-2"></i>
+      <%= @unidade_familiar&.nome || "Não definida" %>
+    </li>
     <hr class="border-light">
-    <li><%= link_to 'Área administrativa', root_path, class: "nav-link p-2 d-block" %></li>
-    <li><%= link_to 'Visão geral', root_path, class: "nav-link p-2 d-block" %></li>
-    <li><%= link_to 'Orçamentos', orcamentos_path, class: "nav-link p-2 d-block" %></li>
-    <li><%= link_to 'Receitas', receitas_path, class: "nav-link p-2 d-block" %></li>
-    <li><%= link_to 'Usuários', usuarios_path, class: "nav-link p-2 d-block" %></li>
+    
+    <!-- <li><%#= link_to root_path, class: "nav-link p-2 d-block" do %> -->
+      <!-- <i class="fa-solid fa-cogs fa-fw me-2"></i> Área administrativa -->
+    <!-- <%# end %></li> -->
+    
+    <li><%= link_to root_path, class: "nav-link p-2 d-block" do %>
+      <i class="fa-solid fa-chart-line fa-fw me-2"></i> Visão geral
+    <% end %></li>
+
+    <li><%= link_to orcamentos_path, class: "nav-link p-2 d-block" do %>
+      <i class="fa-solid fa-wallet fa-fw me-2"></i> Orçamentos
+    <% end %></li>
+
+    <li><%= link_to receitas_path, class: "nav-link p-2 d-block" do %>
+      <i class="fa-solid fa-money-bill-wave fa-fw me-2"></i> Receitas
+    <% end %></li>
+
+    <li><%= link_to usuarios_path, class: "nav-link p-2 d-block" do %>
+      <i class="fa-solid fa-users fa-fw me-2"></i> Usuários
+    <% end %></li>
   </ul>
 </nav>

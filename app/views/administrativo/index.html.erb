@@ -34,16 +34,24 @@
         <div class="card-body overflow-auto">
           <h6 class="card-title">Últimos lançamentos</h6>
           <hr>
-          <div class="row" style="padding-bottom: 18px;">
-            <div class="col-md-8">
-              <p class="mb-0 fw-bold">Mercado</p>
-              <p class="mb-0 text-muted small">Irmãos Gonçalves</p>
+          <% if @ultimas_despesas_lancadas.size > 0 %>
+            <%= @ultimas_despesas_lancadas.each do |despesa| %>
+              <div class="row" style="padding-bottom: 18px;">
+                <div class="col-md-8">
+                  <p class="mb-0 fw-bold"><%= despesa&.orcamento&.categoria || despesa.categoria&.humanize %></p>
+                  <p class="mb-0 text-muted small"><%= despesa&.descricao %></p>
+                </div>
+                <div class="col-md-4">
+                  <p class="mb-0 fw-bold">R$ <%= despesa.valor %></p>
+                  <p class="mb-0 text-muted small"><%= despesa.data_gasto %></p>
+                </div>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="row" style="padding-bottom: 18px;">
+              <p class="mb-0 fw-bold">Não há lançamentos.</p>
             </div>
-            <div class="col-md-4">
-              <p class="mb-0 fw-bold">R$ 100</p>
-              <p class="mb-0 text-muted small">12/04/2002</p>
-            </div>
-          </div>
+          <% end %>
         </div>
       </div>
     </div>

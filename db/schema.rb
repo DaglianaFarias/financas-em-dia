@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_28_132008) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_01_141402) do
   create_table "despesas", force: :cascade do |t|
     t.integer "orcamento_id", null: false
     t.integer "forma_pagamento_id", null: false
@@ -26,8 +26,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_28_132008) do
     t.boolean "alertar_vencimento"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "unidade_familiar_id", null: false
     t.index ["forma_pagamento_id"], name: "index_despesas_on_forma_pagamento_id"
     t.index ["orcamento_id"], name: "index_despesas_on_orcamento_id"
+    t.index ["unidade_familiar_id"], name: "index_despesas_on_unidade_familiar_id"
   end
 
   create_table "forma_pagamentos", force: :cascade do |t|
@@ -98,6 +100,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_28_132008) do
 
   add_foreign_key "despesas", "forma_pagamentos"
   add_foreign_key "despesas", "orcamentos"
+  add_foreign_key "despesas", "unidade_familiares"
   add_foreign_key "forma_pagamentos", "usuarios"
   add_foreign_key "historico_pagamentos", "despesas"
   add_foreign_key "orcamentos", "unidade_familiares"

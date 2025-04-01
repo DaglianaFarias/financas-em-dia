@@ -11,6 +11,7 @@
           <th scope="col">E-mail</th>
           <th scope="col">Status</th>
           <th scope="col">Receber alerta de contas?</th>
+          <th scope="col">Receitas</th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -25,8 +26,10 @@
               </span>
             </td>
             <td><%= usuario.receber_alerta? ? 'Sim' : 'Não' %></td>
+            <td>R$ <%= usuario.receitas&.sum(:valor) %></td>
             <td>
               <%= link_to 'Editar', edit_usuario_path(usuario), class: 'btn btn-sm btn-secondary' %>
+              <%= link_to "Adicionar Receita", new_receita_path(usuario_id: usuario.id), class: "btn btn-sm btn-primary" %>
             </td>
           </tr>
         <% end %>

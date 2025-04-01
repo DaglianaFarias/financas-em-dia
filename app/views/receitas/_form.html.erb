@@ -3,15 +3,25 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.association :usuario %>
-    <%= f.input :valor %>
-    <%= f.input :descricao %>
-    <%= f.input :dataEntrada %>
-    <%= f.input :dataEncerramento %>
-  </div>
+  <div class="card">
+    <div class="card-body">
+      <%= f.hidden_field :usuario_id, value: params[:usuario_id] %>
+      <%= f.input :descricao %>
+      <div class="row">
+        <div class="col-md-4">
+          <%= f.input :valor %>
+        </div>
+        <div class="col-md-4">
+          <%= f.input :dataEntrada, label: "Data de entrada" %>
+        </div>
+        <div class="col-md-4">
+          <%= f.input :dataEncerramento, label: "Data de encerramento" %>
+        </div>
+      </div>
+    </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+    <div class="card-footer">
+      <%= f.button :submit, "Salvar", class: 'btn btn-sm btn-primary' %>
+    </div>
   </div>
 <% end %>

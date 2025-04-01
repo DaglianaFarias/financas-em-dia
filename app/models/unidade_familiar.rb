@@ -1,6 +1,7 @@
 class UnidadeFamiliar < ApplicationRecord
   has_many :usuarios
   has_many :orcamentos
+  has_many :despesas
 
   after_initialize :definir_status_padrao, if: :new_record?
 
