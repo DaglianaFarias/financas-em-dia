@@ -75,6 +75,11 @@ section {
 .card-orcamento {
   margin: 10px;
 }
+
+.info-registro {
+  font-size: 13px;
+  color: #6c757d;
+}
 /* footer {
   grid-area: footer;
   background-color: #E5E5E5;

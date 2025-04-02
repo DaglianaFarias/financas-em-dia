@@ -1,37 +1,42 @@
-<div id="<%= dom_id usuario %>">
-  <p>
-    <strong>Unidade familiar:</strong>
-    <%= usuario.unidade_familiar_id %>
-  </p>
 
-  <p>
-    <strong>Nome:</strong>
-    <%= usuario.nome %>
-  </p>
-
-  <p>
-    <strong>Email:</strong>
-    <%= usuario.email %>
-  </p>
-
-  <p>
-    <strong>Senha:</strong>
-    <%= usuario.senha %>
-  </p>
-
-  <p>
-    <strong>Status:</strong>
-    <%= usuario.status %>
-  </p>
-
-  <p>
-    <strong>Perfil:</strong>
-    <%= usuario.perfil %>
-  </p>
-
-  <p>
-    <strong>Receber alerta:</strong>
-    <%= usuario.receber_alerta %>
-  </p>
-
+<div class="card">
+  <div class="card-body">
+    <h6 class="card-title mb-0 fw-bold">
+      <i class="fa-regular fa-user"></i>&nbsp;
+      <%= usuario.nome&.upcase %>
+    </h6>
+    <p class="info-registro">
+      Criado em: <%= formatar_data(usuario.created_at, formato: :data_hora) %>
+    </p>
+    <hr>
+    <div class="row" style="padding-bottom: 18px;">
+      <div class="col-md-6">
+        <span>
+          <strong>E-mail:</strong>
+          <%= usuario.email %>
+        </span>
+      </div>
+      <div class="col-md-6">
+        <span>
+          <strong>Situação:</strong>
+          <%= usuario.status&.humanize %>
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <span>
+          <strong>Perfil:</strong>
+          <%= usuario.perfil&.humanize %>
+        </span>
+      </div>
+      <div class="col-md-6">
+        <span>
+          <strong>Deve ser alertado sobre o vencimento de contas?</strong>
+          <%= usuario.receber_alerta? ? "Sim" : "Não" %>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer"></div>
 </div>

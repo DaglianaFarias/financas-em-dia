@@ -1,8 +1,15 @@
 <p style="color: green"><%= notice %></p>
 
-<% content_for :title, "Receitas" %>
-
-<h1>Receitas</h1>
+<div class="card">
+  <div class="card-body">
+    <!-- <strong>
+      Total de receitas cadastradas: <%#= @receitas.size %>
+    </strong> -->
+    <div class="card-item col-md-3" style="background-color: #ebeff5;">
+      <i class="fa-solid fa-money-bill-wave fa-fw me-2"></i> Receita
+    </div>
+  </div>
+</div>
 
 <div id="receitas">
   <% @receitas.each do |receita| %>
