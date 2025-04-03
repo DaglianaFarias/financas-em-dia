@@ -1,0 +1,38 @@
+<div class="card" style="max-height: 500px;">
+  <div class="card-body overflow-auto">
+    <div class="d-flex">
+      <h6 class="card-title">Últimos lançamentos</h6>
+      <div class="ms-auto">
+        <%= link_to "Nova despesa", new_despesa_path %>
+      </div>
+    </div>
+    <hr>
+    <% if ultimas_despesas_lancadas.present? %>
+      <% ultimas_despesas_lancadas.each do |despesa| %>
+        <%= link_to despesa_path(despesa), class: "text-decoration-none text-dark" do %>
+          <div class="row" style="padding-bottom: 18px;">
+            <div class="col-md-6">
+              <p class="mb-0 fw-bold"><%= despesa&.orcamento&.categoria || despesa.categoria&.humanize %></p>
+              <p class="mb-0 text-muted small"><%= despesa&.descricao %></p>
+            </div>
+            <div class="col-md-3">
+              <div class="d-flex">
+                <i class="fa-regular fa-credit-card"></i>&nbsp;
+                <p class="mb-0 text-muted small"><%= formatar_nome_e_tipo_pagamento(despesa.forma_pagamento) %> </p>
+              </div>
+              <p class="mb-0 text-muted small"><%= despesa&.forma_pagamento&.usuario&.nome %></p></p>
+            </div>
+            <div class="col-md-2 ms-auto">
+              <p class="mb-0 fw-bold">R$ <%= despesa.valor %></p>
+              <p class="mb-0 text-muted small"><%= despesa.data_gasto %></p>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+      <div class="row" style="padding-bottom: 18px;">
+        <p class="mb-0 fw-bold">Não há lançamentos.</p>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,25 +1,20 @@
 class FormaPagamentosController < ApplicationController
   before_action :set_forma_pagamento, only: %i[ show edit update destroy ]
 
-  # GET /forma_pagamentos or /forma_pagamentos.json
   def index
     @forma_pagamentos = FormaPagamento.all
   end
 
-  # GET /forma_pagamentos/1 or /forma_pagamentos/1.json
   def show
   end
 
-  # GET /forma_pagamentos/new
   def new
     @forma_pagamento = FormaPagamento.new
   end
 
-  # GET /forma_pagamentos/1/edit
   def edit
   end
 
-  # POST /forma_pagamentos or /forma_pagamentos.json
   def create
     @forma_pagamento = FormaPagamento.new(forma_pagamento_params)
 
@@ -34,7 +29,6 @@ class FormaPagamentosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /forma_pagamentos/1 or /forma_pagamentos/1.json
   def update
     respond_to do |format|
       if @forma_pagamento.update(forma_pagamento_params)
@@ -47,7 +41,6 @@ class FormaPagamentosController < ApplicationController
     end
   end
 
-  # DELETE /forma_pagamentos/1 or /forma_pagamentos/1.json
   def destroy
     @forma_pagamento.destroy!
 
@@ -58,12 +51,10 @@ class FormaPagamentosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_forma_pagamento
       @forma_pagamento = FormaPagamento.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def forma_pagamento_params
       params.require(:forma_pagamento).permit(:usuario_id, :nome, :descricao, :tipo, :vencimento_fatura, :fechamento_fatura, :status, :categoria)
     end

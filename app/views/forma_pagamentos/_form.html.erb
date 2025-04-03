@@ -3,18 +3,40 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.association :usuario %>
-    <%= f.input :nome %>
-    <%= f.input :descricao %>
-    <%= f.input :tipo %>
-    <%= f.input :vencimento_fatura %>
-    <%= f.input :fechamento_fatura %>
-    <%= f.input :status %>
-    <%= f.input :categoria %>
-  </div>
+  <div class="card">
+    <div class="card-body">
+      <%= f.hidden_field :usuario_id, value: params[:usuario_id] %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :nome, label: "Descrição" %>
+        </div>
+        <div class="col-md-6">
+          <%= f.label :tipo, "Tipo de pagamento" %>
+          <%= f.select :tipo,
+            FormaPagamento.tipos.keys.map { |tipo| [I18n.t("attributes.forma_pagamento_tipos.#{tipo}"), tipo] },
+            {}, class: "form-control" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <%= f.label :tipo, "Status" %>
+          <%= f.select :status,
+            FormaPagamento.status.keys { |status| [status.humanize, status] },
+            {}, class: "form-control" %>
+        </div>
+      </div>
+      <div class="row" style="display: none;">
+        <div class="col-md-4">
+          <%= f.input :vencimento_fatura, label: "Data de vencimento da fatura" %>
+        </div>
+        <div class="col-md-4">
+          <%= f.input :fechamento_fatura, label: "Data de fechamento da fatura" %>
+        </div>
+      </div>
+    </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+    <div class="card-footer">
+      <%= f.button :submit, "Salvar", class: 'btn btn-sm btn-primary' %>
+    </div>
   </div>
 <% end %>

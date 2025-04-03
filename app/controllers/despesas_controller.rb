@@ -22,6 +22,7 @@ class DespesasController < ApplicationController
   # POST /despesas or /despesas.json
   def create
     @despesa = Despesa.new(despesa_params)
+    @despesa.unidade_familiar = @unidade_familiar
 
     respond_to do |format|
       if @despesa.save

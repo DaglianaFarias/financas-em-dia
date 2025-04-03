@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_01_141402) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_03_123418) do
   create_table "despesas", force: :cascade do |t|
     t.integer "orcamento_id", null: false
     t.integer "forma_pagamento_id", null: false
@@ -35,7 +35,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_01_141402) do
   create_table "forma_pagamentos", force: :cascade do |t|
     t.integer "usuario_id", null: false
     t.string "nome"
-    t.text "descricao"
     t.integer "tipo"
     t.date "vencimento_fatura"
     t.date "fechamento_fatura"

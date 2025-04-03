@@ -5,8 +5,11 @@
     <div class="col-sm-4 mb-3 mb-sm-0">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Receitas</h5>
-          <p class="card-text">R$ 1.000,00</p>
+          <h5 class="card-title">
+            <i class="fa-solid fa-money-bill-wave fa-fw me-2"></i>
+            Receitas
+          </h5>
+          <h6>R$ <%= @total_receitas %></h6>
         </div>
       </div>
     </div>
@@ -29,33 +32,10 @@
   </div>
 
   <div class="row" style="padding-top: 20px;">
-    <div class="col-sm-6 mb-3 mb-sm-0">
-      <div class="card" style="max-height: 500px;">
-        <div class="card-body overflow-auto">
-          <h6 class="card-title">Últimos lançamentos</h6>
-          <hr>
-          <% if @ultimas_despesas_lancadas.size > 0 %>
-            <%= @ultimas_despesas_lancadas.each do |despesa| %>
-              <div class="row" style="padding-bottom: 18px;">
-                <div class="col-md-8">
-                  <p class="mb-0 fw-bold"><%= despesa&.orcamento&.categoria || despesa.categoria&.humanize %></p>
-                  <p class="mb-0 text-muted small"><%= despesa&.descricao %></p>
-                </div>
-                <div class="col-md-4">
-                  <p class="mb-0 fw-bold">R$ <%= despesa.valor %></p>
-                  <p class="mb-0 text-muted small"><%= despesa.data_gasto %></p>
-                </div>
-              </div>
-            <% end %>
-          <% else %>
-            <div class="row" style="padding-bottom: 18px;">
-              <p class="mb-0 fw-bold">Não há lançamentos.</p>
-            </div>
-          <% end %>
-        </div>
-      </div>
+    <div class="col-sm-8 mb-3 mb-sm-0">
+      <%= render 'despesas/ultimos_lancamentos', ultimas_despesas_lancadas: @ultimas_despesas_lancadas %>
     </div>
-    <div class="col-sm-6 mb-3 mb-sm-0">
+    <div class="col-sm-4 mb-3 mb-sm-0">
       <div class="card" style="max-height: 500px;">
         <div class="card-body overflow-auto">
           <h6 class="card-title">Gráficos</h6>
@@ -70,6 +50,53 @@
               <p class="mb-0 text-muted small">12/04/2002</p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="padding-top: 20px;">
+    <div class="col-sm-6 mb-3 mb-sm-0">
+      <div class="card">
+        <div class="card-body overflow-auto">
+          <h6 class="card-title">
+            <strong>Contas</strong>
+          </h6>
+          <hr>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 mb-3 mb-sm-0">
+      <div class="card">
+        <div class="card-body overflow-auto">
+          <h6 class="card-title">
+            <strong>Orçamentos</strong>
+          </h6>
+          <div>
+            <div class="card-text">teste</div>
+            <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar bg-success" style="width: 25%">25%</div>
+            </div>
+          </div>
+          <div>
+            <div class="card-text">teste</div>
+            <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar bg-info text-dark" style="width: 50%">50%</div>
+            </div>
+          </div>
+          <div>
+            <div class="card-text">teste</div>
+            <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar bg-warning text-dark" style="width: 75%">75%</div>
+            </div>
+          </div>
+          <div>
+            <div class="card-text">teste</div>
+            <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar bg-danger" style="width: 100%">100%</div>
+            </div>
+          </div>
+          <hr>
         </div>
       </div>
     </div>
