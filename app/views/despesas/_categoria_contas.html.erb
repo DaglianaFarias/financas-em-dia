@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-body overflow-auto">
+    <div class="d-flex">
+      <h6 class="card-title">
+        <i class="fa-solid fa-file-invoice-dollar"></i>&nbsp;
+        <strong>Contas</strong>
+      </h6>
+      <div class="ms-auto">
+        <%= link_to "Cadastrar conta", new_despesa_path %>
+      </div>
+    </div>
+    <hr>
+
+    <table class="table caption-top">
+      <!-- # <caption>List of users</caption> -->
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th>Data de vencimento</th>
+          <th>Forma de pagamento</th>
+          <th>Valor</th>
+          <th>Situação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if ultimas_contas_lancadas.present? %>
+          <% ultimas_contas_lancadas.each do |conta| %>
+            <tr>
+              <td><%= conta.descricao %></td>
+              <td><%= conta.data_vencimento %></td>
+              <td><%= formatar_nome_e_tipo_pagamento(conta.forma_pagamento) %></td>
+              <td><%= conta.valor %></td>
+              <td><%#= conta.valor %></td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="5" class="text-center">Não há contas cadastradas.</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+

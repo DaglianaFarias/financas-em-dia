@@ -3,24 +3,34 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.label :orcamento, "Categoria da despesa" %>
-    <%= f.select :orcamento_id, options_for_select(descricao_orcamentos), {}, class: 'form-control' %>
-    <%= f.select :forma_pagamento_id, options_for_select(formas_de_pagamento), {}, class: 'form-control' %>
-    <%= f.input :descricao, label: 'Detalhes' %>
-    <%= f.select :categoria, options_for_select(Despesa.categorias.keys.map { |categoria| [categoria.humanize, categoria] }),{}, class: 'form-control' %>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <% f.hidden_field :categoria, value: Despesa.categorias[:gastos] %>
+        <div class="col-md-6">
+          <%= f.label :orcamento, "Categoria da despesa" %>
+          <%= f.select :orcamento_id, options_for_select(descricao_orcamentos), {}, class: 'form-control' %>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :descricao, label: 'Detalhes' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <%= f.input :valor %>
+        </div>
+        <div class="col-md-4">
+          <%= f.label :tipo, "Forma de pagamento" %>
+          <%= f.select :forma_pagamento_id, options_for_select(formas_de_pagamento), {}, class: 'form-control' %>
+        </div>
+        <div class="col-md-4">
+          <%= f.input :data_gasto, label: "Data da compra" %>
+        </div>
+      </div>
+    </div>
 
-    <%= f.input :data_gasto %>
-    <%= f.input :valor %>
-    <%= f.input :status %>
-    <%= f.input :quantidade_parcelas %>
-    <%= f.input :parcela_atual %>
-    <%= f.input :dia_vencimento %>
-    <%= f.input :data_vencimento %>
-    <%= f.input :alertar_vencimento %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
+    <div class="card-footer">
+      <%= f.button :submit, "Salvar", class: 'btn btn-sm btn-primary' %>
+    </div>
   </div>
 <% end %>

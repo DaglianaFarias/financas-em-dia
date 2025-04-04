@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_03_123418) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_04_144358) do
   create_table "despesas", force: :cascade do |t|
     t.integer "orcamento_id", null: false
     t.integer "forma_pagamento_id", null: false
@@ -36,12 +36,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_03_123418) do
     t.integer "usuario_id", null: false
     t.string "nome"
     t.integer "tipo"
-    t.date "vencimento_fatura"
-    t.date "fechamento_fatura"
+    t.date "vencimento_fatura_old"
+    t.date "fechamento_fatura_old"
     t.integer "status"
     t.integer "categoria"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "dia_vencimento_fatura"
+    t.integer "melhor_dia_compra"
     t.index ["usuario_id"], name: "index_forma_pagamentos_on_usuario_id"
   end
 

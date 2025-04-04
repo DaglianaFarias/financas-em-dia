@@ -3,7 +3,7 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="card">
+  <div class="card" data-controller="forma-pagamento">
     <div class="card-body">
       <%= f.hidden_field :usuario_id, value: params[:usuario_id] %>
       <div class="row">
@@ -14,7 +14,7 @@
           <%= f.label :tipo, "Tipo de pagamento" %>
           <%= f.select :tipo,
             FormaPagamento.tipos.keys.map { |tipo| [I18n.t("attributes.forma_pagamento_tipos.#{tipo}"), tipo] },
-            {}, class: "form-control" %>
+            {}, class: "form-control", data: { action: "change->forma-pagamento#exibirOpcoesCartaoCredito", forma_pagamento_target: "selectTipoPagamento" } %>
         </div>
       </div>
       <div class="row">
@@ -25,12 +25,12 @@
             {}, class: "form-control" %>
         </div>
       </div>
-      <div class="row" style="display: none;">
-        <div class="col-md-4">
-          <%= f.input :vencimento_fatura, label: "Data de vencimento da fatura" %>
+      <div class="row" style="display: none;" data-forma-pagamento-target="inputsCartaoCredito">
+        <div class="col-md-4"> 
+          <%= f.input :dia_vencimento_fatura, label: "Data de vencimento da fatura" %>
         </div>
         <div class="col-md-4">
-          <%= f.input :fechamento_fatura, label: "Data de fechamento da fatura" %>
+          <%= f.input :melhor_dia_compra, label: "Melhor dia de compra" %>
         </div>
       </div>
     </div>

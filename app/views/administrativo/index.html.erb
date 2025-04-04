@@ -57,14 +57,7 @@
 
   <div class="row" style="padding-top: 20px;">
     <div class="col-sm-6 mb-3 mb-sm-0">
-      <div class="card">
-        <div class="card-body overflow-auto">
-          <h6 class="card-title">
-            <strong>Contas</strong>
-          </h6>
-          <hr>
-        </div>
-      </div>
+      <%= render 'despesas/categoria_contas', ultimas_contas_lancadas: @ultimas_contas_lancadas %>
     </div>
     <div class="col-sm-6 mb-3 mb-sm-0">
       <div class="card">

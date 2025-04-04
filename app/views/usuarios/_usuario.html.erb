@@ -46,4 +46,29 @@
       </div>
     </div>
   </div>
+</div><br>
+<div class="d-flex">
+  <div class="card col-md-6">
+    <div class="card-body">
+      <h6 class="card-title mb-0 fw-bold">
+        <i class="fa-solid fa-credit-card" style="color: #74C0FC;"></i>&nbsp;
+        Cartões cadastrados
+      </h6>
+      <hr>
+      <% usuario.forma_pagamentos&.each do |forma_pagamento| %>
+        <div class="d-flex" style="padding-bottom: 18px;">
+          <div class="col-md-6">
+            <p class="mb-0 fw-bold"><%= forma_pagamento.nome %></p>
+          </div>
+          <div class="col-md-6">
+            <p class="mb-0 text-muted small"><%= t("attributes.forma_pagamento_tipos.#{forma_pagamento.tipo}") %></p>
+            <% if forma_pagamento.cartao_credito? %>
+              <p class="mb-0 text-muted small">Melhor dia de compra: <%= forma_pagamento.melhor_dia_compra %></p>
+              <p class="mb-0 text-muted small">Vencimento: <%= forma_pagamento.dia_vencimento_fatura %></p>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

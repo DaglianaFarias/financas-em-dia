@@ -38,7 +38,7 @@ main {
 
 nav {
   grid-area: menu;
-  background-color: #110733;
+  background-color: #0D1B2A;
   display: flex;
   font-size: 15px;
   color: white;
@@ -79,6 +79,13 @@ section {
 .info-registro {
   font-size: 13px;
   color: #6c757d;
+}
+
+.card-cartao {
+  background-color: #E0E1DD;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 /* footer {
   grid-area: footer;
