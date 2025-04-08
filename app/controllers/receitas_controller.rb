@@ -20,11 +20,9 @@ class ReceitasController < ApplicationController
 
     respond_to do |format|
       if @receita.save
-        format.html { redirect_to @receita, notice: "Receita was successfully created." }
-        format.json { render :show, status: :created, location: @receita }
+        format.html { redirect_to usuario_path(@receita.usuario_id), notice: "Receita criada com sucesso.." }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @receita.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -32,11 +30,9 @@ class ReceitasController < ApplicationController
   def update
     respond_to do |format|
       if @receita.update(receita_params)
-        format.html { redirect_to @receita, notice: "Receita was successfully updated." }
-        format.json { render :show, status: :ok, location: @receita }
+        format.html { redirect_to usuario_path(@receita.usuario_id), notice: "Receita atualizada com sucesso." }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @receita.errors, status: :unprocessable_entity }
       end
     end
   end

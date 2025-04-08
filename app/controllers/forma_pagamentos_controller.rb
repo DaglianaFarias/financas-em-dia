@@ -20,11 +20,9 @@ class FormaPagamentosController < ApplicationController
 
     respond_to do |format|
       if @forma_pagamento.save
-        format.html { redirect_to @forma_pagamento, notice: "Forma pagamento was successfully created." }
-        format.json { render :show, status: :created, location: @forma_pagamento }
+        format.html { redirect_to usuario_path(@forma_pagamento.usuario_id), notice: "Forma de pagamento cadastrada com sucesso!" }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @forma_pagamento.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -32,11 +30,9 @@ class FormaPagamentosController < ApplicationController
   def update
     respond_to do |format|
       if @forma_pagamento.update(forma_pagamento_params)
-        format.html { redirect_to @forma_pagamento, notice: "Forma pagamento was successfully updated." }
-        format.json { render :show, status: :ok, location: @forma_pagamento }
+        format.html { redirect_to usuario_path(@forma_pagamento.usuario_id), notice: "Forma de pagamento atualizada com sucesso." }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @forma_pagamento.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -56,6 +52,6 @@ class FormaPagamentosController < ApplicationController
     end
 
     def forma_pagamento_params
-      params.require(:forma_pagamento).permit(:usuario_id, :nome, :descricao, :tipo, :vencimento_fatura, :fechamento_fatura, :status, :categoria)
+      params.require(:forma_pagamento).permit(:usuario_id, :nome, :descricao, :tipo, :dia_vencimento_fatura, :melhor_dia_compra, :status, :categoria)
     end
 end
