@@ -52,7 +52,7 @@
   <div class="card-body">
     <h6 class="card-title mb-0 fw-bold">
       <i class="fa-solid fa-credit-card" style="color: #74C0FC;"></i>&nbsp;
-      Cartões cadastrados
+      Formas de pagamento cadastradas
     </h6>
     <hr>
     <table class="table table-borderless">
@@ -83,7 +83,7 @@
         Receitas
       </h6>
       <div class="ms-auto">
-        <span class="fw-bold">Total: <%= number_to_currency(usuario&.receitas&.sum(:valor) || 0, unit: "R$", separator: ",", delimiter: ".")  %></span>
+        <span class="fw-bold">Total: <%= number_to_currency(usuario&.receitas&.sum(:valor) || 0, unit: "R$", separator: ",", delimiter: ".", precision: 2)  %></span>
       </div>
     </div>
     <hr>
@@ -92,7 +92,7 @@
         <% usuario.receitas&.each do |receita| %>
         <tr>
           <td><%= receita.descricao %></td>
-          <td class="fw-bold mb-0"><%= number_to_currency(receita.valor || 0, unit: "R$", separator: ",", delimiter: ".") %></td>
+          <td class="fw-bold mb-0"><%= number_to_currency(receita.valor || 0, unit: "R$", separator: ",", delimiter: ".", precision: 2) %></td>
           <td><%= link_to "Editar", edit_receita_path(receita, usuario_id: usuario.id) %></td>
         </tr>
         <% end %>

@@ -1,95 +1,72 @@
-<div style="padding-top: 20px;">
-  <h4>Visão geral</h4>
 
-  <div class="row">
-    <div class="col-sm-4 mb-3 mb-sm-0">
-      <div class="card">
+<div class="pt-4">
+  <div class="row row-cols-1 row-cols-md-3 g-3 mb-4">
+    <div class="col">
+      <div class="card border-0 shadow-sm h-100 text-center">
         <div class="card-body">
-          <h5 class="card-title">
-            <i class="fa-solid fa-money-bill-wave fa-fw me-2"></i>
-            Receitas
+          <h5 class="card-title text-success">
+            <i class="fa-solid fa-money-bill-wave me-2"></i>Receitas
           </h5>
-          <h6>R$ <%= @total_receitas %></h6>
+          <h2 class="fw-semibold text-success">
+            R$ <%= number_to_currency(@total_receitas, unit: "", separator: ",", delimiter: ".", precision: 2) %>
+          </h2>
         </div>
       </div>
     </div>
-    <div class="col-sm-4">
-      <div class="card">
+
+    <div class="col">
+      <div class="card border-0 shadow-sm h-100 text-center">
         <div class="card-body">
-          <h5 class="card-title">Despesas</h5>
-          <p class="card-text">R$ 500,00</p>
+          <h5 class="card-title text-danger">
+            <i class="fa-solid fa-arrow-down me-2"></i>Despesas
+          </h5>
+          <h2 class="fw-semibold text-danger">
+            R$ <%= number_to_currency(500, unit: "", separator: ",", delimiter: ".", precision: 2) %>
+          </h2>
         </div>
       </div>
     </div>
-    <div class="col-sm-4">
-      <div class="card">
+
+    <div class="col">
+      <div class="card border-0 shadow-sm h-100 text-center">
         <div class="card-body">
-          <h5 class="card-title">Teste</h5>
-          <p class="card-text">Teste 1</p>
+          <h5 class="card-title text-primary">
+            <i class="fa-solid fa-piggy-bank me-2"></i>Saldo Atual
+          </h5>
+          <h2 class="fw-semibold text-primary">
+            R$ <%= number_to_currency(500, unit: "", separator: ",", delimiter: ".", precision: 2) %>
+          </h2>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="row" style="padding-top: 20px;">
-    <div class="col-sm-8 mb-3 mb-sm-0">
+  <!-- Situação Financeira Atual -->
+  <%= render 'despesas/card_resumo_financeiro', ultimas_despesas_lancadas: @ultimas_despesas_lancadas %>
+
+  <!-- Lançamentos e Categorias -->
+  <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
+    <div class="col">
+      <%= render 'despesas/gastos_por_categoria', ultimas_contas_lancadas: @contas_cadastradas %>
+    </div>
+    <div class="col">
       <%= render 'despesas/ultimos_lancamentos', ultimas_despesas_lancadas: @ultimas_despesas_lancadas %>
     </div>
-    <div class="col-sm-4 mb-3 mb-sm-0">
-      <div class="card" style="max-height: 500px;">
-        <div class="card-body overflow-auto">
-          <h6 class="card-title">Gráficos</h6>
-          <hr>
-          <div class="row" style="padding-bottom: 18px;">
-            <div class="col-md-8">
-              <p class="mb-0 fw-bold">Mercado</p>
-              <p class="mb-0 text-muted small">Irmãos Gonçalves</p>
-            </div>
-            <div class="col-md-4">
-              <p class="mb-0 fw-bold">R$ 100</p>
-              <p class="mb-0 text-muted small">12/04/2002</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
-  <div class="row" style="padding-top: 20px;">
-    <div class="col-sm-6 mb-3 mb-sm-0">
-      <%= render 'despesas/categoria_contas', ultimas_contas_lancadas: @ultimas_contas_lancadas %>
+  <!-- Categoria de Contas e Gráfico -->
+  <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
+    <div class="col">
+      <%= render 'despesas/categoria_contas', ultimas_contas_lancadas: @contas_cadastradas %>
     </div>
-    <div class="col-sm-6 mb-3 mb-sm-0">
-      <div class="card">
-        <div class="card-body overflow-auto">
-          <h6 class="card-title">
-            <strong>Orçamentos</strong>
-          </h6>
-          <div>
-            <div class="card-text">teste</div>
-            <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-              <div class="progress-bar bg-success" style="width: 25%">25%</div>
-            </div>
-          </div>
-          <div>
-            <div class="card-text">teste</div>
-            <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-              <div class="progress-bar bg-info text-dark" style="width: 50%">50%</div>
-            </div>
-          </div>
-          <div>
-            <div class="card-text">teste</div>
-            <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-              <div class="progress-bar bg-warning text-dark" style="width: 75%">75%</div>
-            </div>
-          </div>
-          <div>
-            <div class="card-text">teste</div>
-            <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-              <div class="progress-bar bg-danger" style="width: 100%">100%</div>
-            </div>
-          </div>
-          <hr>
+    <div class="col">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title">
+            <i class="fa-solid fa-chart-pie me-2 text-primary"></i>
+            Distribuição do Orçamento
+          </h5>
+          <%= pie_chart @dados_orcamento, height: "300px", colors: ["#4caf50", "#2196f3", "#ff9800", "#f44336", "#9c27b0"] %>
         </div>
       </div>
     </div>

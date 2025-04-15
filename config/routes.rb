@@ -9,6 +9,11 @@ Rails.application.routes.draw do
   resources :usuarios
   resources :unidade_familiares
 
+  get 'contas/new', to: 'despesas#new_conta', as: 'nova_conta'
+  post 'conta/save', to: 'despesas#save_conta', as: 'save_conta'
+  get 'contas', to: 'despesas#listar_contas', as: 'listar_contas'
+  post 'pagamento_despesa', to: 'despesas#pagamento_despesa', as: 'pagamento_despesa'
+
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 

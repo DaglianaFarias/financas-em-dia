@@ -1,28 +1,24 @@
 class DespesasController < ApplicationController
-  before_action :set_despesa, only: %i[ show edit update destroy ]
+  before_action :set_despesa, only: %i[ show edit update destroy pagamento_despesa]
 
-  # GET /despesas or /despesas.json
   def index
     @despesas = Despesa.all
   end
 
-  # GET /despesas/1 or /despesas/1.json
   def show
   end
 
-  # GET /despesas/new
   def new
     @despesa = Despesa.new
   end
 
-  # GET /despesas/1/edit
   def edit
   end
 
-  # POST /despesas or /despesas.json
   def create
     @despesa = Despesa.new(despesa_params)
     @despesa.unidade_familiar = @unidade_familiar
+    @despesa.categoria = 'gastos' if despesa_params[:categoria].blank?
 
     respond_to do |format|
       if @despesa.save
@@ -35,7 +31,6 @@ class DespesasController < ApplicationController
     end
   end
 
-  # PATCH/PUT /despesas/1 or /despesas/1.json
   def update
     respond_to do |format|
       if @despesa.update(despesa_params)
@@ -48,7 +43,6 @@ class DespesasController < ApplicationController
     end
   end
 
-  # DELETE /despesas/1 or /despesas/1.json
   def destroy
     @despesa.destroy!
 
@@ -58,13 +52,40 @@ class DespesasController < ApplicationController
     end
   end
 
+  def new_conta
+    @despesa = Despesa.new
+  end
+
+  def save_conta
+    @despesa = Despesa.new(despesa_params)
+    @despesa.unidade_familiar = @unidade_familiar
+    @despesa.categoria = 'contas'
+
+    respond_to do |format|
+      if @despesa.save
+        format.html { redirect_to listar_contas_path, notice: "Conta cadastrada com sucesso" }
+      else
+        format.html { render :new_conta, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def listar_contas
+    @contas =  Despesa.where(categoria: 'contas')
+  end
+
+  def pagamento_despesa
+    data_referencia = params[:data]
+    @despesa.historico_pagamentos.create!(data_pagamento: data_referencia)
+
+    redirect_to root_path
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_despesa
       @despesa = Despesa.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def despesa_params
       params.require(:despesa).permit(:orcamento_id, :forma_pagamento_id, :descricao, :categoria, :data_gasto, :valor, :status, :quantidade_parcelas, :parcela_atual, :dia_vencimento, :data_vencimento, :alertar_vencimento)
     end

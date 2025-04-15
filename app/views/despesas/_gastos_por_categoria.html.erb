@@ -1,0 +1,37 @@
+<div class="card mb-4 shadow-sm" style="max-height: 550px;">
+  <div class="card-body overflow-auto">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <h5 class="mb-0">
+          <i class="fa-solid fa-chart-pie me-2 text-primary"></i>
+          Resumo Orçamentário
+        </h5>
+        <small class="text-muted">Comparativo entre valores estimados e realizados</small>
+      </div>
+    </div>
+
+    <hr>
+
+    <% @totais_por_orcamento.each do |orcamento, total| %>
+      <% limite = orcamento.valorEstimado || 1 %>
+      <% utilizado = ((total / limite.to_f) * 100).round %>
+      <% cor_barra = utilizado < 80 ? 'bg-success' : utilizado <= 100 ? 'bg-warning' : 'bg-danger' %>
+
+      <div class="mb-3">
+        <div class="d-flex justify-content-between">
+          <strong><%= orcamento.categoria %></strong>
+          <span>
+            R$ <%= number_to_currency(total, unit: "", separator: ",", delimiter: ".", precision: 2) %>
+            / <strong>R$ <%= number_to_currency(limite, unit: "", separator: ",", delimiter: ".", precision: 2) %></strong>
+          </span>
+        </div>
+
+        <div class="progress mt-1" style="height: 18px;" role="progressbar" aria-valuenow="<%= utilizado %>" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar <%= cor_barra %>" style="width: <%= utilizado %>%;">
+            <%= utilizado %>%
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

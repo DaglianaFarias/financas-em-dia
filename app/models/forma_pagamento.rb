@@ -17,4 +17,8 @@ class FormaPagamento < ApplicationRecord
     ativo: 0,
     inativo: 1
   }
+
+  scope :por_data_referencia, ->(data_referencia_param) {
+    where(data_gasto: data_referencia_param.at_beginning_of_month..data_referencia_param.at_end_of_month)
+  }
 end

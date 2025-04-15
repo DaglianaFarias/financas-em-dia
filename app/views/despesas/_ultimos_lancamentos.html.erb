@@ -1,41 +1,62 @@
-<div class="card" style="max-height: 500px;">
+<div class="card border-0 shadow-sm rounded-3" style="max-height: 500px;">
   <div class="card-body overflow-auto">
-    <div class="d-flex">
-      <h6 class="card-title">
-        <i class="fa-solid fa-list" style="color: #3b7de8;"></i>&nbsp;
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h6 class="card-title d-flex align-items-center text-primary">
+        <i class="fa-solid fa-list me-2"></i>
         Últimos lançamentos
       </h6>
-      <div class="ms-auto">
-        <%= link_to "Nova despesa", new_despesa_path %>
-      </div>
+      <%= link_to "Nova despesa", new_despesa_path, class: "btn btn-outline-primary btn-sm" %>
     </div>
     <hr>
+
     <% if ultimas_despesas_lancadas.present? %>
       <% ultimas_despesas_lancadas.each do |despesa| %>
         <%= link_to despesa_path(despesa), class: "text-decoration-none text-dark" do %>
-          <div class="row" style="padding-bottom: 18px;">
+          <div class="row mb-3 py-2 rounded-3 despesas-item">
             <div class="col-md-6">
-              <p class="mb-0 fw-bold"><%= despesa&.orcamento&.categoria || despesa.categoria&.humanize %></p>
-              <p class="mb-0 text-muted small"><%= despesa&.descricao %></p>
+              <p class="mb-0 fw-bold text-truncate" style="max-width: 180px;">
+                <%= despesa&.orcamento&.categoria || despesa.categoria&.humanize %>
+              </p>
+              <p class="mb-0 text-muted small text-truncate" style="max-width: 180px;">
+                <%= despesa&.descricao %>
+              </p>
             </div>
+
             <div class="col-md-3">
-              <div class="d-flex">
-                <i class="fa-regular fa-credit-card"></i>&nbsp;
-                <p class="mb-0 text-muted small"><%= formatar_nome_e_tipo_pagamento(despesa.forma_pagamento) %> </p>
+              <div class="d-flex align-items-center mb-1">
+                <i class="fa-regular fa-credit-card me-2"></i>
+                <p class="mb-0 text-muted small text-truncate">
+                  <%= formatar_nome_e_tipo_pagamento(despesa.forma_pagamento) %>
+                </p>
               </div>
-              <p class="mb-0 text-muted small"><%= despesa&.forma_pagamento&.usuario&.nome %></p></p>
+              <p class="mb-0 text-muted small">
+                <%= despesa&.forma_pagamento&.usuario&.nome %>
+              </p>
             </div>
-            <div class="col-md-2 ms-auto">
-              <p class="mb-0 fw-bold">R$ <%= despesa.valor %></p>
-              <p class="mb-0 text-muted small"><%= despesa.data_gasto %></p>
+
+            <div class="col-md-2 ms-auto text-end">
+              <p class="mb-0 fw-bold text-success">
+                R$ <%= number_to_currency(despesa.valor, unit: "", separator: ",", delimiter: ".", precision: 2) %>
+              </p>
+              <p class="mb-0 text-muted small"><%= despesa.data_gasto.strftime("%d/%m/%Y") %></p>
             </div>
           </div>
         <% end %>
       <% end %>
     <% else %>
-      <div class="row" style="padding-bottom: 18px;">
+      <div class="row">
         <p class="mb-0 fw-bold">Não há lançamentos.</p>
       </div>
     <% end %>
   </div>
 </div>
+<style>
+.despesas-item {
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.despesas-item:hover {
+  background-color: #f0f8ff;
+}
+</style>

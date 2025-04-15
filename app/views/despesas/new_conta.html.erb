@@ -1,0 +1,40 @@
+<h3>Nova conta</h3>
+<%= simple_form_for @despesa, url: save_conta_path do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <% f.hidden_field :categoria, value: Despesa.categorias[:contas] %>
+        <div class="col-md-12">
+          <%= f.input :descricao, label: 'Descrição' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :valor %>
+        </div>
+        <div class="col-md-6">
+          <%= f.label :tipo, "Forma de pagamento" %>
+          <%= f.select :forma_pagamento_id, options_for_select(formas_de_pagamento), {}, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :dia_vencimento, label: "Vencimento" %>
+        </div> 
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="form-check">
+            <%= f.check_box :alertar_vencimento, class: 'form-check-input' %>
+            <%= f.label :alertar_vencimento, 'Deve emitir alerta de vencimento?', class: 'form-check-label' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <%= f.button :submit, "Salvar", class: 'btn btn-sm btn-primary' %>
+    </div>
+  </div>
+<% end %>

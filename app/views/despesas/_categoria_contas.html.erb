@@ -1,23 +1,26 @@
-<div class="card">
+<div class="card border-0 shadow-sm" style="max-height: 400px;">
   <div class="card-body overflow-auto">
-    <div class="d-flex">
-      <h6 class="card-title">
-        <i class="fa-solid fa-file-invoice-dollar"></i>&nbsp;
-        <strong>Contas</strong>
-      </h6>
-      <div class="ms-auto">
-        <%= link_to "Cadastrar conta", new_despesa_path %>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div>
+        <h6 class="card-title mb-0">
+          <i class="fa-solid fa-file-invoice-dollar me-2 text-primary"></i>
+          <strong>Contas</strong>
+        </h6>
+        <small class="text-muted">Total:
+          <span class="badge rounded-pill bg-secondary">
+            R$ <%= number_to_currency(@valor_total_contas || 0, unit: "", separator: ",", delimiter: ".", precision: 2) %>
+          </span>
+        </small>
       </div>
+      <%= link_to "Cadastrar conta", nova_conta_path, class: "btn btn-sm btn-outline-primary" %>
     </div>
     <hr>
 
     <table class="table caption-top">
-      <!-- # <caption>List of users</caption> -->
-      <thead>
+      <thead class="table-light sticky-top bg-white">
         <tr>
           <th>Descrição</th>
-          <th>Data de vencimento</th>
-          <th>Forma de pagamento</th>
+          <th>Vencimento</th>
           <th>Valor</th>
           <th>Situação</th>
         </tr>
@@ -27,10 +30,11 @@
           <% ultimas_contas_lancadas.each do |conta| %>
             <tr>
               <td><%= conta.descricao %></td>
-              <td><%= conta.data_vencimento %></td>
-              <td><%= formatar_nome_e_tipo_pagamento(conta.forma_pagamento) %></td>
-              <td><%= conta.valor %></td>
-              <td><%#= conta.valor %></td>
+              <td class="text-center">
+                <span class="badge text-bg-info"><%= conta.dia_vencimento %></span>
+              </td>
+              <td><%= number_to_currency(conta.valor || 0, unit: "R$", separator: ",", delimiter: ".", precision: 2) %></td>
+              <td><%= status_conta(conta, @data_referencia) %></td>
             </tr>
           <% end %>
         <% else %>
@@ -42,4 +46,3 @@
     </table>
   </div>
 </div>
-

@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_04_144358) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_14_235722) do
   create_table "despesas", force: :cascade do |t|
-    t.integer "orcamento_id", null: false
+    t.integer "orcamento_id"
     t.integer "forma_pagamento_id", null: false
     t.text "descricao"
     t.integer "categoria"
