@@ -2,7 +2,7 @@ class UsuariosController < ApplicationController
   before_action :set_usuario, only: %i[ show edit update destroy ]
 
   def index
-    @usuarios = Usuario.all
+    @usuarios = @unidade_familiar.usuarios
     @receita = Receita.new
   end
 
@@ -10,7 +10,7 @@ class UsuariosController < ApplicationController
   end
 
   def new
-    @usuario = Usuario.new
+    @usuario = Usuario.new(unidade_familiar: @unidade_familiar, perfil: 'usuario_regular')
   end
 
   def edit
@@ -18,16 +18,12 @@ class UsuariosController < ApplicationController
 
   def create
     @usuario = Usuario.new(usuario_params)
-    @usuario.unidade_familiar = UnidadeFamiliar.first #ajustar
+    @usuario.unidade_familiar = @unidade_familiar
 
-    respond_to do |format|
-      if @usuario.save
-        format.html { redirect_to @usuario, notice: "Usuario was successfully created." }
-        format.json { render :show, status: :created, location: @usuario }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @usuario.errors, status: :unprocessable_entity }
-      end
+    if @usuario.save
+      redirect_to @usuario, notice: "Usuário cadastrado com sucesso." 
+    else
+      render :new
     end
   end
 

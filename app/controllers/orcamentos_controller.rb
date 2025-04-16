@@ -1,53 +1,39 @@
 class OrcamentosController < ApplicationController
   before_action :set_orcamento, only: %i[ show edit update destroy ]
 
-  # GET /orcamentos or /orcamentos.json
   def index
-    @orcamentos = Orcamento.all
+    @orcamentos = @unidade_familiar.orcamentos
   end
 
-  # GET /orcamentos/1 or /orcamentos/1.json
   def show
   end
 
-  # GET /orcamentos/new
   def new
-    @orcamento = Orcamento.new
+    @orcamento = Orcamento.new(unidade_familiar: @unidade_familiar)
   end
 
-  # GET /orcamentos/1/edit
   def edit
   end
 
-  # POST /orcamentos or /orcamentos.json
   def create
     @orcamento = Orcamento.new(orcamento_params)
+    @orcamento.unidade_familiar = @unidade_familiar
 
-    respond_to do |format|
-      if @orcamento.save
-        format.html { redirect_to @orcamento, notice: "Orcamento was successfully created." }
-        format.json { render :show, status: :created, location: @orcamento }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @orcamento.errors, status: :unprocessable_entity }
-      end
+    if @orcamento.save
+      redirect_to orcamentos_path, notice: 'Orçamento criado com sucesso.'
+    else
+      render :new
     end
   end
 
-  # PATCH/PUT /orcamentos/1 or /orcamentos/1.json
   def update
-    respond_to do |format|
-      if @orcamento.update(orcamento_params)
-        format.html { redirect_to @orcamento, notice: "Orcamento was successfully updated." }
-        format.json { render :show, status: :ok, location: @orcamento }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @orcamento.errors, status: :unprocessable_entity }
-      end
+    if @orcamento.update(orcamento_params)
+      redirect_to orcamentos_path, notice: 'Orçamento atualizado com sucesso.'
+    else
+      render :edit
     end
   end
 
-  # DELETE /orcamentos/1 or /orcamentos/1.json
   def destroy
     @orcamento.destroy!
 
@@ -58,12 +44,10 @@ class OrcamentosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_orcamento
       @orcamento = Orcamento.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def orcamento_params
       params.require(:orcamento).permit(:unidade_familiar_id, :categoria, :status, :descricao, :valorEstimado)
     end

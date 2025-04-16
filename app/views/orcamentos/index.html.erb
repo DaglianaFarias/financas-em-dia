@@ -1,6 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
-<div class="d-flex justify-content-between align-items-center card-item">
+<div class="d-flex justify-content-between align-items-center card-item mb-3">
   <div>
     <h5>Orçamentos</h5>
     <p>Total: <%= @orcamentos.size %></p>
@@ -10,10 +10,73 @@
   </div>
 </div>
 
-
-<div id="orcamentos" class="d-flex flex-wrap">
+<div class="orcamento-list">
   <% @orcamentos.each do |orcamento| %>
-    <%= render orcamento %>
+    <div class="orcamento-item d-flex justify-content-between flex-wrap">
+      <div class="orcamento-info me-3">
+        <strong><%= orcamento.categoria %></strong>
+        <div class="orcamento-descricao text-muted small mt-1">
+          <%= orcamento.descricao %>
+        </div>
+      </div>
+      <div class="orcamento-controles d-flex flex-column text-end align-items-end">
+        <div class="valor-estimado mb-2">R$ <%= number_with_precision(orcamento.valorEstimado, precision: 2, separator: ",") %></div>
+        <%= link_to 'Editar', edit_orcamento_path(orcamento), class: 'btn btn-sm btn-outline-secondary' %>
+      </div>
+    </div>
   <% end %>
 </div>
 
+<style>
+  .orcamento-list {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.orcamento-item {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.orcamento-item:last-child {
+  border-bottom: none;
+}
+
+.orcamento-info {
+  max-width: 70%;
+  min-width: 200px;
+  flex-grow: 1;
+}
+
+.orcamento-info strong {
+  font-size: 16px;
+  color: #333;
+}
+
+.orcamento-descricao {
+  font-size: 13px;
+  color: #6c757d;
+  margin-top: 4px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.orcamento-controles {
+  min-width: 120px;
+}
+
+.valor-estimado {
+  font-weight: 600;
+  font-size: 15px;
+  color: #212529;
+  white-space: nowrap;
+}
+
+
+</style>
