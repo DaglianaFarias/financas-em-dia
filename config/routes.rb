@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "administrativo#index"
+  root "administrativo#visao_geral"
 
   resources :historico_pagamentos
   resources :despesas

@@ -1,56 +1,104 @@
 class AdministrativoController < ApplicationController
 
-  def index
-    @ultimas_despesas_lancadas = @unidade_familiar.despesas.where(categoria: 'gastos').order(created_at: :desc).limit(8)
-    @contas_cadastradas = @unidade_familiar.despesas.where(categoria: 'contas').order(dia_vencimento: :asc)
-    @valor_total_contas = @contas_cadastradas.sum(:valor)
+  before_action :setar_periodo
 
-    # @usuarios_unidade_familiar = @unidade_familiar&.usuarios.where(status: 'ativo')
-    @usuarios_unidade_familiar = @unidade_familiar&.usuarios
-    @total_receitas = @usuarios_unidade_familiar.where(status: 'ativo')&.joins(:receitas).sum("receitas.valor")
+  def visao_geral
+    data_atual = @data_referencia
 
-    @orcamentos = @unidade_familiar.orcamentos
     @despesa_total_categoria_gastos = 0
     @gastos_por_orcamento = 0
-    @despesas_agrupadas = {} unless defined?(@despesas_agrupadas)
+    @despesas_agrupadas = Hash.new { |hash, key| hash[key] = [] }
     @totais_por_orcamento = nil
+  
+    @ultimas_despesas_lancadas = @unidade_familiar.despesas.where(categoria: 'gastos').order(created_at: :desc).limit(8)
+    @contas_cadastradas = @unidade_familiar
+                          .despesas
+                          .where(categoria: 'contas')
+                          .where('created_at <= ?', data_atual)
+                          .order(dia_vencimento: :asc)
 
-    data_atual = Date.today
-
+    @valor_total_contas = @contas_cadastradas.sum(:valor)
+  
+    @usuarios_unidade_familiar = @unidade_familiar&.usuarios
+    @total_receitas = @usuarios_unidade_familiar.where(status: 'ativo')&.joins(:receitas).sum("receitas.valor")
+  
+    @orcamentos = @unidade_familiar.orcamentos.where('created_at <= ?', data_atual)
+    @despesa_total_categoria_gastos = 0
+  
     @usuarios_unidade_familiar.each do |usuario|
       next if usuario.forma_pagamentos.blank?
-
+  
       usuario.forma_pagamentos.each do |forma_pagamento|
-        data_inicio = data_atual.beginning_of_month
-        data_fim = data_atual.end_of_month
-
-        if forma_pagamento.cartao_credito?
-          melhor_dia_compra = forma_pagamento.melhor_dia_compra&.to_i
-
-          data_inicio = data_atual.change(day: melhor_dia_compra) << 1 rescue (data_atual.beginning_of_month << 1).change(day: melhor_dia_compra)
-          data_fim = data_atual.change(day: melhor_dia_compra) rescue data_atual.end_of_month.change(day: melhor_dia_compra)
-        end
-
-        @despesa_total_categoria_gastos += (forma_pagamento.despesas.where(categoria: 'gastos', data_gasto: data_inicio..data_fim )&.sum(:valor) || 0)
-
-        despesas = forma_pagamento.despesas
-          .includes(:orcamento)
-          .where(data_gasto: data_inicio..data_fim)
-          .where(orcamentos: { unidade_familiar_id: @unidade_familiar.id })
-
+        data_inicio, data_fim = calcular_periodo_pagamento(data_atual, forma_pagamento)
+  
+        @despesa_total_categoria_gastos += calcular_despesas_gastos(forma_pagamento, data_inicio, data_fim)
+  
+        despesas = buscar_despesas_por_periodo(forma_pagamento, data_inicio, data_fim)
+  
         despesas.each do |despesa|
           orcamento = despesa.orcamento
           next unless orcamento
-
-          @despesas_agrupadas[orcamento] ||= []
+  
           @despesas_agrupadas[orcamento] << despesa
         end
-
-        @totais_por_orcamento = @despesas_agrupadas.transform_values { |despesas| despesas.sum(&:valor) }
       end
     end
-
+  
+    @totais_por_orcamento = calcular_totais_por_orcamento
+  
     @total_contas_previstas = @valor_total_contas + @unidade_familiar.orcamentos.sum(:valorEstimado)
-    @dados_orcamento = @unidade_familiar.orcamentos.group(:categoria).sum(:valorEstimado)
+  
+    @dados_orcamento = @unidade_familiar.orcamentos.where('created_at <= ?', data_atual).group(:categoria).sum(:valorEstimado)
+    @dados_orcamento[:contas] = @total_contas_previstas
+
+    @valor_total_contas_pagas = somar_contas_pagas(data_atual)
+
+    @despesa_total = @valor_total_contas_pagas + @despesa_total_categoria_gastos
+  end
+  
+  private
+  
+  def calcular_periodo_pagamento(data_atual, forma_pagamento)
+    if forma_pagamento.cartao_credito?
+      melhor_dia_compra = forma_pagamento.melhor_dia_compra&.to_i
+  
+      data_inicio = data_atual.change(day: melhor_dia_compra) << 1 rescue (data_atual.beginning_of_month << 1).change(day: melhor_dia_compra)
+      data_fim = data_atual.change(day: melhor_dia_compra) rescue data_atual.end_of_month.change(day: melhor_dia_compra)
+    else
+      data_inicio = data_atual.beginning_of_month
+      data_fim = data_atual.end_of_month
+    end
+  
+    [data_inicio, data_fim]
+  end
+  
+  def calcular_despesas_gastos(forma_pagamento, data_inicio, data_fim)
+    forma_pagamento.despesas.where(categoria: 'gastos', data_gasto: data_inicio..data_fim)&.sum(:valor) || 0
+  end
+  
+  def buscar_despesas_por_periodo(forma_pagamento, data_inicio, data_fim)
+    forma_pagamento.despesas
+      .includes(:orcamento)
+      .where(data_gasto: data_inicio..data_fim)
+      .where(orcamentos: { unidade_familiar_id: @unidade_familiar.id })
+  end
+  
+  def calcular_totais_por_orcamento
+    @despesas_agrupadas.transform_values { |despesas| despesas.sum(&:valor) }
+  end
+
+  def somar_contas_pagas(data_referencia)
+    @contas_cadastradas.sum do |conta|
+      conta.possui_historico_pagamento?(data_referencia) ? conta.valor : 0
+    end
+  end
+
+  def setar_periodo
+    if params[:filtrar_periodo] && params[:filtrar_periodo][:mes_ano].present?
+      ano, mes = params[:filtrar_periodo][:mes_ano].split("-").map(&:to_i)
+      @data_referencia = Date.new(ano, mes, 1)
+    else
+      @data_referencia = Date.today
+    end
   end
 end

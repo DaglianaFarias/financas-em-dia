@@ -15,4 +15,13 @@ module ApplicationHelper
       data.to_s
     end
   end
+
+  def opcoes_mes_ano(qtde_meses = 12)
+    hoje = Date.today
+  
+    (0...qtde_meses).map do |i|
+      data = hoje << i
+      [I18n.l(data, format: "%B/%Y").capitalize, data.strftime("%Y-%m")]
+    end
+  end   
 end

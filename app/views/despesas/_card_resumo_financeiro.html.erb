@@ -17,10 +17,10 @@
 
     <div class="mb-2">
       <strong>Gastos Realizados:</strong>
-      R$ <%= number_to_currency(@despesa_total_categoria_gastos || 0, unit: "", separator: ",", delimiter: ".", precision: 2) %>
+      R$ <%= number_to_currency(@despesa_total || 0, unit: "", separator: ",", delimiter: ".", precision: 2) %>
     </div>
 
-    <% valor_saldo = (@total_contas_previstas - @despesa_total_categoria_gastos) || 0 %>
+    <% valor_saldo = (@total_contas_previstas - @despesa_total) || 0 %>
     <% saldo_disponivel = number_to_currency(valor_saldo, unit: "", separator: ",", delimiter: ".", precision: 2) %>
 
     <div class="mb-2">
@@ -30,7 +30,7 @@
       </span>
     </div>
 
-    <% utilizado = @total_contas_previstas.positive? ? ((@despesa_total_categoria_gastos / @total_contas_previstas.to_f) * 100).round : 0
+    <% utilizado = @total_contas_previstas.positive? ? ((@despesa_total / @total_contas_previstas.to_f) * 100).round : 0
       passou_orcamento = utilizado > 100
 
       cor_barra = if utilizado < 75
