@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root "administrativo#visao_geral"
+  devise_for :usuarios
+  root "relatorio#visao_geral"
 
   resources :historico_pagamentos
   resources :despesas
@@ -13,6 +14,8 @@ Rails.application.routes.draw do
   post 'conta/save', to: 'despesas#save_conta', as: 'save_conta'
   get 'contas', to: 'despesas#listar_contas', as: 'listar_contas'
   post 'pagamento_despesa', to: 'despesas#pagamento_despesa', as: 'pagamento_despesa'
+
+  get 'area_administrativa', to: 'administrativo#area_administrativa'
 
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'

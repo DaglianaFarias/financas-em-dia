@@ -1,25 +1,21 @@
 class UnidadeFamiliaresController < ApplicationController
   before_action :set_unidade_familiar, only: %i[ show edit update destroy ]
 
-  # GET /unidade_familiares or /unidade_familiares.json
   def index
     @unidade_familiares = UnidadeFamiliar.all
   end
 
-  # GET /unidade_familiares/1 or /unidade_familiares/1.json
   def show
+    @usuarios = @unidade_familiar.usuarios
   end
 
-  # GET /unidade_familiares/new
   def new
-    @unidade_familiar = UnidadeFamiliar.new
+    @unidade_familiar = UnidadeFamiliar.new(status: 'ativa')
   end
 
-  # GET /unidade_familiares/1/edit
   def edit
   end
 
-  # POST /unidade_familiares or /unidade_familiares.json
   def create
     @unidade_familiar = UnidadeFamiliar.new(unidade_familiar_params)
 
@@ -34,7 +30,6 @@ class UnidadeFamiliaresController < ApplicationController
     end
   end
 
-  # PATCH/PUT /unidade_familiares/1 or /unidade_familiares/1.json
   def update
     respond_to do |format|
       if @unidade_familiar.update(unidade_familiar_params)
@@ -47,7 +42,6 @@ class UnidadeFamiliaresController < ApplicationController
     end
   end
 
-  # DELETE /unidade_familiares/1 or /unidade_familiares/1.json
   def destroy
     @unidade_familiar.destroy!
 
@@ -58,13 +52,11 @@ class UnidadeFamiliaresController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_unidade_familiar
       @unidade_familiar = UnidadeFamiliar.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def unidade_familiar_params
-      params.require(:unidade_familiar).permit(:nome, :descricao, :status, :categoria)
+      params.require(:unidade_familiar).permit(:nome, :descricao, :status)
     end
 end

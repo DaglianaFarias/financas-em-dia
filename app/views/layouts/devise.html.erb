@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanças em Dia</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css', 'data-turbo-track': 'reload' %>
+    <%= stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css', 'data-turbo-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+
+    <!-- Core JS files -->
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js', 'data-turbo-track': 'reload' %>
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js', 'data-turbo-track': 'reload' %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body class="bg-light">
+    <div class="container-fluid h-100">
+      <div class="row d-flex justify-content-center align-items-center min-vh-100">
+        <div class="col-sm-12 col-md-6 col-lg-4"> 
+          <div class="card shadow-sm p-4">
+            <h4 class="text-center mb-4">Login - Finanças em Dia</h4>
+
+            <%= yield %>
+
+            <% if notice %>
+              <p class="alert alert-success mt-3"><%= notice %></p>
+            <% end %>
+            <% if alert %>
+              <p class="alert alert-danger mt-3"><%= alert %></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

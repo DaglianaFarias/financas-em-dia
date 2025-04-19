@@ -5,13 +5,22 @@
 
   <div class="card">
     <div class="card-body">
-      <%= f.input :nome %>
       <div class="row">
+        <%= f.input :unidade_familiar_id, as: :hidden, input_html: { value: params[:unidade_familiar_id] } %>
+
+        <div class="col-md-6">
+          <%= f.input :nome %>
+        </div>
         <div class="col-md-6">
           <%= f.input :email %>
         </div>
+      </div>
+      <div class="row">
         <div class="col-md-6">
-          <%= f.input :senha %>
+          <%= f.input :password, label: "Senha", required: true%>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :password_confirmation, label: "Confirmação de senha", required: true %>
         </div>
       </div>
       <div class="row">
@@ -20,8 +29,8 @@
           <%= f.select :status, Usuario.status.keys.map { |status| [status.humanize, status] }, {}, class: "form-control" %>
         </div>
         <div class="col-md-6">
-          <%= f.label :perfil, "Perfil" %>
-          <%= f.select :perfil, Usuario.perfis.keys.map { |status| [status.humanize, status] }, {}, class: "form-control" %>
+          <%#= f.label :perfil, "Perfil" %>
+          <%#= f.select :perfil, Usuario.perfis.keys.map { |status| [status.humanize, status] }, {}, class: "form-control" %>
         </div>
       </div><br>
       <div class="row">

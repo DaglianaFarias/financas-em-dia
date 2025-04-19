@@ -14,15 +14,21 @@
         </tr>
       </thead>
       <tbody>
-        <% @orcamentos.each do |orcamento| %>
+        <% if @orcamentos.blank? %>
           <tr>
-            <td><strong><%= orcamento.categoria %></strong></td>
-            <td class="text-muted"><%= orcamento.descricao %></td>
-            <td class="text-end">R$ <%= number_with_precision(orcamento.valorEstimado, precision: 2, separator: ",") %></td>
-            <td class="text-end">
-              <%= link_to 'Editar', edit_orcamento_path(orcamento), class: 'btn btn-sm btn-outline-secondary' %>
-            </td>
+            <td colspan="4" class="text-center">Não há orçamentos cadastrados.</td>
           </tr>
+        <% else %>
+          <% @orcamentos.each do |orcamento| %>
+            <tr>
+              <td><strong><%= orcamento.categoria %></strong></td>
+              <td class="text-muted"><%= orcamento.descricao %></td>
+              <td class="text-end">R$ <%= number_with_precision(orcamento.valorEstimado, precision: 2, separator: ",") %></td>
+              <td class="text-end">
+                <%= link_to 'Editar', edit_orcamento_path(orcamento), class: 'btn btn-sm btn-outline-secondary' %>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>

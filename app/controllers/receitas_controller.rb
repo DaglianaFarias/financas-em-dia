@@ -47,11 +47,12 @@ class ReceitasController < ApplicationController
   end
 
   private
-    def set_receita
-      @receita = Receita.find(params[:id])
-    end
 
-    def receita_params
-      params.require(:receita).permit(:usuario_id, :valor, :descricao, :dataEntrada, :dataEncerramento)
-    end
+  def set_receita
+    @receita = Receita.find(params[:id])
+  end
+
+  def receita_params
+    params.require(:receita).permit(:usuario_id, :valor, :descricao, :dataEntrada, :dataEncerramento)
+  end
 end

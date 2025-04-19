@@ -80,11 +80,12 @@ class DespesasController < ApplicationController
   end
 
   private
-    def set_despesa
-      @despesa = Despesa.find(params[:id])
-    end
 
-    def despesa_params
-      params.require(:despesa).permit(:orcamento_id, :forma_pagamento_id, :descricao, :categoria, :data_gasto, :valor, :status, :quantidade_parcelas, :parcela_atual, :dia_vencimento, :data_vencimento, :alertar_vencimento)
-    end
+  def set_despesa
+    @despesa = Despesa.find(params[:id])
+  end
+
+  def despesa_params
+    params.require(:despesa).permit(:orcamento_id, :forma_pagamento_id, :descricao, :categoria, :data_gasto, :valor, :status, :quantidade_parcelas, :parcela_atual, :dia_vencimento, :data_vencimento, :alertar_vencimento)
+  end
 end

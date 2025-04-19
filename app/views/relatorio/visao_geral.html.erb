@@ -20,27 +20,11 @@
             <i class="fa-solid fa-arrow-down me-2"></i>Despesas
           </h5>
           <h2 class="fw-semibold text-danger" style="font-size: 1.5rem;">
-            R$ <%= number_to_currency(500, unit: "", separator: ",", delimiter: ".", precision: 2) %>
+            R$ <%= number_to_currency(@despesa_total, unit: "", separator: ",", delimiter: ".", precision: 2) %>
           </h2>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="row">
-    <%= simple_form_for :filtrar_periodo, url: root_path, method: :get, html: { class: "row row-cols-lg-auto g-3 align-items-end" } do |f| %>
-      <div class="">
-        <%= f.input :mes_ano,
-                    label: 'Filtrar por período',
-                    collection: opcoes_mes_ano,
-                    prompt: "Selecione o mês/ano",
-                    input_html: { class: "form-select" } %>
-      </div>
-    
-      <div class="mb-3">
-        <%= f.button :submit, "Filtrar", class: "btn btn-success w-100" %>
-      </div>
-    <% end %>
   </div>
 
   <%= render 'despesas/card_resumo_financeiro', ultimas_despesas_lancadas: @ultimas_despesas_lancadas %>
