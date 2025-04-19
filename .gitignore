@@ -13,10 +13,8 @@
 # Used by dotenv library to load environment variables.
 # .env
 
-# Ignore Byebug command history file.
 .byebug_history
 
-## Specific to RubyMotion:
 .dat*
 .repl_history
 build/
@@ -35,3 +33,6 @@ build-iPhoneSimulator/
 
 .rvmrc
 /config/master.key
+
+/config/credentials/development.key
+/log/*
