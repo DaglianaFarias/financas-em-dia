@@ -1,0 +1,7 @@
+:concurrency: 5
+:scheduler:
+  :schedule:
+    notificar_contas_job:
+      cron: "0 9 * * *"
+      class: "NotificarContasJob"
+      queue: default

@@ -6,10 +6,6 @@
     </li>
     <hr class="border-light">
     
-    <!-- <li><%#= link_to root_path, class: "nav-link p-2 d-block" do %> -->
-      <!-- <i class="fa-solid fa-cogs fa-fw me-2"></i> Área administrativa -->
-    <!-- <%# end %></li> -->
-    
     <li><%= link_to root_path, class: "nav-link p-2 d-block" do %>
       <i class="fa-solid fa-chart-line fa-fw me-2"></i> Visão geral
     <% end %></li>
@@ -18,9 +14,9 @@
       <i class="fa-solid fa-wallet fa-fw me-2"></i> Orçamentos
     <% end %></li>
 
-    <!-- <li><%#= link_to receitas_path, class: "nav-link p-2 d-block" do %> -->
-      <!-- <i class="fa-solid fa-money-bill-wave fa-fw me-2"></i> Receitas -->
-    <!-- <%# end %></li> -->
+    <li><%= link_to listar_contas_path, class: "nav-link p-2 d-block" do %>
+      <i class="fa-solid fa-file-invoice	 fa-fw me-2"></i> Contas
+    <% end %></li>
 
     <li><%= link_to usuarios_path, class: "nav-link p-2 d-block" do %>
       <i class="fa-solid fa-users fa-fw me-2"></i> Usuários

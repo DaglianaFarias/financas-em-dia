@@ -53,25 +53,23 @@ class DespesasController < ApplicationController
   end
 
   def new_conta
-    @despesa = Despesa.new
+    @despesa = Despesa.new(categoria: 'contas')
   end
 
   def save_conta
-    @despesa = Despesa.new(despesa_params)
-    @despesa.unidade_familiar = @unidade_familiar
-    @despesa.categoria = 'contas'
+    @conta = Despesa.new(despesa_params)
+    @conta.unidade_familiar = @unidade_familiar
+    @conta.categoria = 'contas'
 
-    respond_to do |format|
-      if @despesa.save
-        format.html { redirect_to listar_contas_path, notice: "Conta cadastrada com sucesso" }
-      else
-        format.html { render :new_conta, status: :unprocessable_entity }
-      end
+    if @conta.save
+      redirect_to listar_contas_path, notice: "Conta cadastrada com sucesso"
+    else
+      render :new_conta
     end
   end
 
   def listar_contas
-    @contas =  Despesa.where(categoria: 'contas')
+    @contas =  Despesa.where(categoria: 'contas').order(dia_vencimento: :asc)
   end
 
   def pagamento_despesa

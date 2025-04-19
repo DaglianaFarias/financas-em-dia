@@ -35,7 +35,10 @@
       </div>
     </div>
 
-    <div class="card-footer">
+    <div class="card-footer text-end">
+      <%= link_to request.referer, class: "btn btn-outline-secondary btn-sm" do %>
+        <i class="fa-solid fa-arrow-left me-2"></i> Voltar
+      <% end %>
       <%= f.button :submit, "Salvar", class: 'btn btn-sm btn-primary' %>
     </div>
   </div>

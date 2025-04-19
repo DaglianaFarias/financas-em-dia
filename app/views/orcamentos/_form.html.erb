@@ -10,7 +10,7 @@
           <%= f.input :categoria %>
         </div>
         <div class="col-md-6">
-          <%= f.input :valorEstimado %>
+          <%= f.input :valorEstimado, label: 'Valor estimado' %>
         </div>
       </div>
       
@@ -20,7 +20,7 @@
     </div>
 
     <div class="card-footer text-end">
-      <%= link_to request.referer ||  orcamentos_path, class: "btn btn-outline-secondary d-inline-flex align-items-center" do %>
+      <%= link_to request.referer, class: "btn btn-outline-secondary d-inline-flex align-items-center" do %>
         <i class="fa-solid fa-arrow-left me-2"></i> Voltar
       <% end %>
       <%= f.button :submit, "Salvar", class: 'btn btn-primary' %>

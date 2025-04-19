@@ -2,7 +2,7 @@ class AdministrativoController < ApplicationController
 
   def index
     @ultimas_despesas_lancadas = @unidade_familiar.despesas.where(categoria: 'gastos').order(created_at: :desc).limit(8)
-    @contas_cadastradas = @unidade_familiar.despesas.where(categoria: 'contas')
+    @contas_cadastradas = @unidade_familiar.despesas.where(categoria: 'contas').order(dia_vencimento: :asc)
     @valor_total_contas = @contas_cadastradas.sum(:valor)
 
     # @usuarios_unidade_familiar = @unidade_familiar&.usuarios.where(status: 'ativo')
@@ -49,6 +49,7 @@ class AdministrativoController < ApplicationController
         @totais_por_orcamento = @despesas_agrupadas.transform_values { |despesas| despesas.sum(&:valor) }
       end
     end
+
     @total_contas_previstas = @valor_total_contas + @unidade_familiar.orcamentos.sum(:valorEstimado)
     @dados_orcamento = @unidade_familiar.orcamentos.group(:categoria).sum(:valorEstimado)
   end

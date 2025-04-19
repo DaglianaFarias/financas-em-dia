@@ -1,4 +1,4 @@
-<h6>Contas cadastradas: <%= @contas.size %></h6>
+<%= render 'shared/card_info', titulo: 'Contas', total_itens: @contas.size, link_text: "Cadastrar nova conta", link_url: nova_conta_path %>
 
 <table class="table table-hover table-bordered align-middle shadow-sm rounded">
   <thead class="table-light">
@@ -8,6 +8,7 @@
       <th class="text-center">Forma de pagamento</th>
       <th class="text-end">Valor</th>
       <th class="text-center">Situação</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -29,6 +30,9 @@
           </td>
           <td class="text-center" id="<%= dom_id(conta, :status_pagamento) %>">
             <%= status_conta(conta, @data_referencia) %>
+          </td>
+          <td class="text-center">
+            <%= link_to "Editar", edit_despesa_path(conta) %>
           </td>
         </tr>
       <% end %>

@@ -18,6 +18,10 @@ gem "groupdate"
 gem "bootsnap", require: false
 gem "kamal", require: false
 gem "thruster", require: false
+gem "sidekiq"
+gem 'sidekiq-scheduler'
+gem 'redis'
+gem 'devise'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
