@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Historico pagamentos" %>
+
+<h1>Historico pagamentos</h1>
+
+<div id="historico_pagamentos">
+  <% @historico_pagamentos.each do |historico_pagamento| %>
+    <%= render historico_pagamento %>
+    <p>
+      <%= link_to "Show this historico pagamento", historico_pagamento %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New historico pagamento", new_historico_pagamento_path %>

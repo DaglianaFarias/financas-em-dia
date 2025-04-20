@@ -1,0 +1,45 @@
+
+<%= simple_form_for(@forma_pagamento) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="card" data-controller="forma-pagamento">
+    <div class="card-body">
+      <%= f.hidden_field :usuario_id, value: params[:usuario_id] %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :nome, label: "Descrição" %>
+        </div>
+        <div class="col-md-6">
+          <%= f.label :tipo, "Tipo de pagamento" %>
+          <%= f.select :tipo,
+            FormaPagamento.tipos.keys.map { |tipo| [I18n.t("attributes.forma_pagamento_tipos.#{tipo}"), tipo] },
+            {}, class: "form-control", data: { action: "change->forma-pagamento#exibirOpcoesCartaoCredito", forma_pagamento_target: "selectTipoPagamento" } %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <%= f.label :tipo, "Status" %>
+          <%= f.select :status,
+            FormaPagamento.status.keys { |status| [status.humanize, status] },
+            {}, class: "form-control" %>
+        </div>
+      </div>
+      <div class="row" style="display: none;" data-forma-pagamento-target="inputsCartaoCredito">
+        <div class="col-md-4"> 
+          <%= f.input :dia_vencimento_fatura, label: "Data de vencimento da fatura" %>
+        </div>
+        <div class="col-md-4">
+          <%= f.input :melhor_dia_compra, label: "Melhor dia de compra" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer text-end">
+      <%= link_to request.referer, class: "btn btn-outline-secondary btn-sm" do %>
+        <i class="fa-solid fa-arrow-left me-2"></i> Voltar
+      <% end %>
+      <%= f.button :submit, "Salvar", class: 'btn btn-sm btn-primary' %>
+    </div>
+  </div>
+<% end %>

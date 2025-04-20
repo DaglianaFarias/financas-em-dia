@@ -1,0 +1,50 @@
+
+<%= simple_form_for(@usuario) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <%= f.input :unidade_familiar_id, as: :hidden, input_html: { value: params[:unidade_familiar_id] } %>
+
+        <div class="col-md-6">
+          <%= f.input :nome %>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :email %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :password, label: "Senha", required: true%>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :password_confirmation, label: "Confirmação de senha", required: true %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.label :status, "Status" %>
+          <%= f.select :status, Usuario.status.keys.map { |status| [status.humanize, status] }, {}, class: "form-control" %>
+        </div>
+        <div class="col-md-6">
+          <%#= f.label :perfil, "Perfil" %>
+          <%#= f.select :perfil, Usuario.perfis.keys.map { |status| [status.humanize, status] }, {}, class: "form-control" %>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :receber_alerta %>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer text-end">
+      <%= link_to request.referer, class: "btn btn-outline-secondary d-inline-flex align-items-center" do %>
+        <i class="fa-solid fa-arrow-left me-2"></i> Voltar
+      <% end %>
+      <%= f.button :submit, "Salvar", class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>

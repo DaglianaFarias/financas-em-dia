@@ -1,0 +1,20 @@
+<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'needs-validation' }) do |f| %>
+  <div class="form-group mb-4">
+    <%= f.input :email, label: "E-mail", input_html: { class: 'form-control', placeholder: 'Digite seu e-mail', autofocus: true } %>
+  </div>
+
+  <div class="form-group mb-4">
+    <%= f.input :password, label: "Senha", input_html: { class: 'form-control', placeholder: 'Digite sua senha' } %>
+  </div>
+
+  <div class="form-group mb-4 form-check">
+    <%= f.check_box :remember_me, class: 'form-check-input' %>
+    <label class="form-check-label" for="remember_me">Lembrar de mim</label>
+  </div>
+
+  <%= f.button :submit, "Entrar", class: 'btn btn-success btn-block w-100' %>
+<% end %>
+
+<div class="text-center mt-3">
+  <%= link_to 'Esqueceu sua senha?', new_password_path(resource_name), class: 'text-muted' %>
+</div>

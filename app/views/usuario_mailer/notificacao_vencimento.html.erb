@@ -1,0 +1,38 @@
+<h2>Olá, <%= @usuario.nome %>!</h2>
+
+<p style="font-size: 16px; color: #333;">
+  Esperamos que esteja tudo bem com você! Este é um lembrete gentil de que algumas contas estão próximas do vencimento.
+  Abaixo, seguem os detalhes:
+</p>
+
+<h3 style="color: #FF5722;">Contas a vencer:</h3>
+
+<ul style="list-style-type: none; padding-left: 0;">
+  <% @contas.each do |conta| %>
+    <li style="border-bottom: 1px solid #ddd; padding: 10px 0;">
+      <p style="font-size: 16px; font-weight: bold; color: #555;">
+        <%= conta.descricao %>
+      </p>
+      <p style="font-size: 14px; color: #777;">
+        Data de vencimento: <strong><%= conta.dia_vencimento %></strong>
+      </p>
+    </li>
+  <% end %>
+</ul>
+
+<p style="font-size: 16px; color: #333;">
+  Lembrando que o sistema não permite efetuar pagamentos diretamente, servindo apenas como ferramenta de acompanhamento financeiro.
+</p>
+
+<p style="font-size: 16px; color: #333;">
+  Após realizar o pagamento, acesse o sistema para atualizar o status das contas.
+</p>
+
+<p style="font-size: 16px; color: #333;">
+  Caso o pagamento já tenha sido realizado, este aviso pode ser desconsiderado.
+</p>
+
+<p style="font-size: 16px; color: #4CAF50;">
+  Atenciosamente,<br>
+  Equipe <strong>Finanças em Dia</strong>
+</p>

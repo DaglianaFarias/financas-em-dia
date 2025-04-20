@@ -1,0 +1,44 @@
+
+<%= render 'shared/card_info', titulo: "Unidades Familiares", total_itens: @unidade_familiares.size, link_text: "Nova unidade familiar", link_url: new_unidade_familiar_path %>
+<div class="card">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Status</th>
+            <th scope="col">Quantidade de usuários</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @unidade_familiares.each do |unidade_familiar| %>
+            <tr>
+              <th scope="row"><%= unidade_familiar.id %></th>
+              <td><%= unidade_familiar.nome %></td>
+              <td><%= unidade_familiar.descricao %></td>
+              <td><%= unidade_familiar.status.humanize %></td>
+              <td><%= unidade_familiar.usuarios&.size %></td>
+              <td>
+                <div class="d-inline-flex gap-2" role="group" aria-label="Ações">
+                  <%= link_to unidade_familiar_path(unidade_familiar), class: 'btn btn-link text-secondary' do %>
+                    Visualizar
+                  <% end %>
+                  <%= link_to edit_unidade_familiar_path(unidade_familiar), class: 'btn btn-link text-primary' do %>
+                    Editar
+                  <% end %>
+                  <%= button_to unidade_familiar_path(unidade_familiar), method: :delete, data: { confirm: 'Tem certeza que deseja excluir esta unidade familiar?' }, class: 'btn btn-link text-danger' do %>
+                    Excluir
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

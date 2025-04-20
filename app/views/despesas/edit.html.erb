@@ -1,0 +1,7 @@
+
+<% unless @despesa.contas? %>
+  <%= render "form", despesa: @despesa %>
+<% else %>
+  <%= render "form_new_conta", despesa: @despesa %>
+<% end %>
+<br>

@@ -1,0 +1,39 @@
+<%= render 'shared/card_info', titulo: 'Usuários', total_itens: @usuarios.size, link_text: "Cadastrar usuário", link_url: new_usuario_path %>
+
+<p style="color: green"><%= notice %></p>
+
+<div id="usuarios" class="card">
+  <div class="card-body">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">E-mail</th>
+          <th scope="col">Status</th>
+          <th scope="col">Receber alerta de contas?</th>
+          <th scope="col">Receitas</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @usuarios.each do |usuario| %>
+          <tr>
+            <th><%= usuario.nome %></th>
+            <td><%= usuario.email %></td>
+            <td>
+              <span class="badge text-bg-<%= usuario.ativo? ? 'success' : 'danger' %>">
+                <%= usuario.status %>
+              </span>
+            </td>
+            <td><%= usuario.receber_alerta? ? 'Sim' : 'Não' %></td>
+            <td>R$ <%= usuario.receitas&.sum(:valor) %></td>
+            <td>
+              <%= link_to 'Visualizar', usuario_path(usuario), class: 'btn btn-sm btn btn-outline-secondary' %>
+              <%= link_to 'Editar', edit_usuario_path(usuario), class: 'btn btn-sm btn btn-outline-secondary' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

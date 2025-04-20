@@ -1,0 +1,36 @@
+
+<%= render 'shared/card_info', titulo: 'Orçamentos', total_itens: @orcamentos.size, link_text: "Cadastrar orçamento", link_url: new_orcamento_path %>
+
+<p style="color: green"><%= notice %></p>
+<div id="orcamentos" class="card">
+  <div class="table-responsive shadow-sm rounded bg-white">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Categoria</th>
+          <th>Descrição</th>
+          <th class="text-end">Valor Estimado</th>
+          <th class="text-end">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @orcamentos.blank? %>
+          <tr>
+            <td colspan="4" class="text-center">Não há orçamentos cadastrados.</td>
+          </tr>
+        <% else %>
+          <% @orcamentos.each do |orcamento| %>
+            <tr>
+              <td><strong><%= orcamento.categoria %></strong></td>
+              <td class="text-muted"><%= orcamento.descricao %></td>
+              <td class="text-end">R$ <%= number_with_precision(orcamento.valorEstimado, precision: 2, separator: ",") %></td>
+              <td class="text-end">
+                <%= link_to 'Editar', edit_orcamento_path(orcamento), class: 'btn btn-sm btn-outline-secondary' %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

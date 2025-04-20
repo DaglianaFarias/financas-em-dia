@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @forma_pagamento %>
+
+<div>
+  <%= link_to "Edit this forma pagamento", edit_forma_pagamento_path(@forma_pagamento) %> |
+  <%= link_to "Back to forma pagamentos", forma_pagamentos_path %>
+
+  <%= button_to "Destroy this forma pagamento", @forma_pagamento, method: :delete %>
+</div>

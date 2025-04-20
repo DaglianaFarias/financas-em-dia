@@ -1,0 +1,38 @@
+<nav class="p-3">
+  <% if current_usuario.administrador? %>
+    <ul class="list-unstyled">
+      <li><%= link_to area_administrativa_path, class: "nav-link p-2 d-block" do %>
+        <i class="fa-solid fa-house-user fa-fw me-2"></i>Área Administrativa
+      <% end %></li>
+      <hr class="border-light">
+
+      <li><%= link_to unidade_familiares_path, class: "nav-link p-2 d-block" do %>
+        <i class="fa-solid fa-people-roof fa-fw me-2"></i>Unidades Familiares
+      <% end %></li>
+    </ul>
+  <% else %>
+    <ul class="list-unstyled">
+      <li class="fw-bold mb-2">
+        <i class="fa-solid fa-house-user fa-fw me-2"></i>
+        <%= @unidade_familiar&.nome || "Não definida" %>
+      </li>
+      <hr class="border-light">
+      
+      <li><%= link_to root_path, class: "nav-link p-2 d-block" do %>
+        <i class="fa-solid fa-chart-line fa-fw me-2"></i> Dashboard atual
+      <% end %></li>
+
+      <li><%= link_to orcamentos_path, class: "nav-link p-2 d-block" do %>
+        <i class="fa-solid fa-wallet fa-fw me-2"></i> Orçamentos
+      <% end %></li>
+
+      <li><%= link_to listar_contas_path, class: "nav-link p-2 d-block" do %>
+        <i class="fa-solid fa-file-invoice	 fa-fw me-2"></i> Contas
+      <% end %></li>
+
+      <li><%= link_to usuarios_path, class: "nav-link p-2 d-block" do %>
+        <i class="fa-solid fa-users fa-fw me-2"></i> Usuários
+      <% end %></li>
+    </ul>
+  <% end %>
+</nav>

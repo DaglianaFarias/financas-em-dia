@@ -1,0 +1,29 @@
+<%= simple_form_for(@orcamento) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <%= f.hidden_field :unidade_familiar_id, value: @unidade_familiar.id %>
+        <div class="col-md-6">
+          <%= f.input :categoria %>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :valorEstimado, label: 'Valor estimado' %>
+        </div>
+      </div>
+      
+      <div class="row">
+        <%= f.input :descricao, label: 'Detalhes' %>
+      </div>
+    </div>
+
+    <div class="card-footer text-end">
+      <%= link_to request.referer, class: "btn btn-outline-secondary d-inline-flex align-items-center" do %>
+        <i class="fa-solid fa-arrow-left me-2"></i> Voltar
+      <% end %>
+      <%= f.button :submit, "Salvar", class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>

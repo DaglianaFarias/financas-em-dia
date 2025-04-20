@@ -1,0 +1,19 @@
+<div class="card shadow-sm mb-4">
+  <div class="card-header">
+    <h5 class="card-title">Área Administrativa</h5>
+  </div>
+  <div class="card-body">
+    <p>
+      Você está na área administrativa do sistema. Aqui você pode criar <strong>Unidades Familiares</strong> e adicionar novos usuários a elas, 
+      permitindo que eles acessem suas respectivas contas e utilizem a aplicação <strong>Finanças em dia</strong>.
+    </p>
+    <p class="text-muted mb-4">
+      Gerencie as unidades familiares e seus usuários de forma prática e eficiente, acessando todos os recursos necessários para a gestão do sistema.
+    </p>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <%= link_to "Criar Unidade Familiar", new_unidade_familiar_path, class: 'btn btn-primary btn-sm' %>
+      <small class="text-muted ms-3">Não tem uma unidade familiar? Clique para criar uma.</small>
+    </div>
+  </div>
+</div>

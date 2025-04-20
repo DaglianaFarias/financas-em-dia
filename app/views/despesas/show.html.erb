@@ -1,0 +1,8 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @despesa %>
+
+<div>
+  <%= link_to "Editar", edit_despesa_path(@despesa) %> |
+  <%= button_to "Excluir", @despesa, method: :delete %>
+</div>
