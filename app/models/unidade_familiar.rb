@@ -1,5 +1,5 @@
 class UnidadeFamiliar < ApplicationRecord
-  has_many :usuarios
+  has_many :usuarios, dependent: :destroy
   has_many :orcamentos
   has_many :despesas
 

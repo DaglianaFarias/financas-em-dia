@@ -3,13 +3,28 @@ class NotificarContasJob < ApplicationJob
 
   def perform
     dias_proximo_vencimento = (Date.today..(Date.today + 5.days)).map(&:day)
-
-    despesas_a_vencer = []
-    Despesa.where(dia_vencimento: dias_proximo_vencimento, categoria: 'contas', alertar_vencimento: true)&.find_each do |conta|
-      next if conta&.possui_historico_pagamento?(Date.today)
-      despesas_a_vencer << conta
+    despesas_por_unidade_familiar = Hash.new { |h, k| h[k] = [] }
+  
+    Despesa.where(
+      dia_vencimento: dias_proximo_vencimento,
+      categoria: 'contas',
+      alertar_vencimento: true
+    ).find_each do |conta|
+      next if conta.possui_historico_pagamento?(Date.today)
+  
+      despesas_por_unidade_familiar[conta.unidade_familiar_id] << conta
     end
 
-    UsuarioMailer.notificacao_vencimento(despesas_a_vencer).deliver_later
-  end
+    despesas_por_unidade_familiar.each do |unidade_familiar_id, contas|
+      unidade_familiar = UnidadeFamiliar.find_by(id: unidade_familiar_id)
+    
+      if unidade_familiar.present?
+        usuarios = unidade_familiar.usuarios&.where(receber_alerta: true)
+
+        usuarios.each do |usuario|
+          UsuarioMailer.notificacao_vencimento(usuario, contas).deliver_later
+        end
+      end
+    end
+  end  
 end

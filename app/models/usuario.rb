@@ -1,7 +1,7 @@
 class Usuario < ApplicationRecord
   belongs_to :unidade_familiar, optional: true
   has_many :receitas, dependent: :destroy
-  has_many :forma_pagamentos
+  has_many :forma_pagamentos, dependent: :destroy
 
   enum :status, { ativo: 1, inativo: 2 }
   enum :perfil, { administrador: 1, usuario_regular: 2 }

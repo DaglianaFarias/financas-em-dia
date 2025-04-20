@@ -23,18 +23,18 @@
               <td><%= unidade_familiar.status.humanize %></td>
               <td><%= unidade_familiar.usuarios&.size %></td>
               <td>
-                <div class="btn-group" role="group" aria-label="Ações">
-                  <%= link_to unidade_familiar_path(unidade_familiar), class: 'btn btn-sm btn-info me-2' do %>
+                <div class="d-inline-flex gap-2" role="group" aria-label="Ações">
+                  <%= link_to unidade_familiar_path(unidade_familiar), class: 'btn btn-link text-secondary' do %>
                     Visualizar
                   <% end %>
-                  <%= link_to edit_unidade_familiar_path(unidade_familiar), class: 'btn btn-sm btn-warning me-2' do %>
+                  <%= link_to edit_unidade_familiar_path(unidade_familiar), class: 'btn btn-link text-primary' do %>
                     Editar
                   <% end %>
-                  <%= button_to unidade_familiar_path(unidade_familiar), method: :delete, data: { confirm: 'Tem certeza que deseja excluir esta unidade familiar?' }, class: 'btn btn-sm btn-danger' do %>
+                  <%= button_to unidade_familiar_path(unidade_familiar), method: :delete, data: { confirm: 'Tem certeza que deseja excluir esta unidade familiar?' }, class: 'btn btn-link text-danger' do %>
                     Excluir
                   <% end %>
                 </div>
-              </td>              
+              </td>
             </tr>
           <% end %>
         </tbody>
