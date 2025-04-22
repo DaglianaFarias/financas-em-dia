@@ -1,62 +1,40 @@
-<div id="<%= dom_id despesa %>">
-  <p>
-    <strong>Orcamento:</strong>
-    <%= despesa.orcamento_id %>
-  </p>
+<div class="card shadow-sm rounded-4 border-0">
+  <div class="card-body">
+    <h6 class="card-title mb-3 fw-bold d-flex align-items-center">
+      <i class="fas fa-money-bill-wave me-2" style="color: #74C0FC;"></i>
+      Detalhes da Despesa
+    </h6><hr>
 
-  <p>
-    <strong>Forma pagamento:</strong>
-    <%= despesa.forma_pagamento_id %>
-  </p>
+    <div class="row mb-2">
+      <div class="col-md-6 mb-2">
+        <strong>Descrição:</strong><br>
+        <span><%= despesa.descricao %></span>
+      </div>
 
-  <p>
-    <strong>Descricao:</strong>
-    <%= despesa.descricao %>
-  </p>
+      <div class="col-md-6 mb-2">
+        <strong>Categoria:</strong><br>
+        <span><%= despesa.orcamento&.categoria || "Não especificada" %></span>
+      </div>
 
-  <p>
-    <strong>Categoria:</strong>
-    <%= despesa.categoria %>
-  </p>
+      <div class="col-md-6 mb-2">
+        <strong>Forma de pagamento:</strong><br>
+        <span><%= formatar_nome_e_tipo_pagamento(despesa.forma_pagamento) %></span>
+      </div>
 
-  <p>
-    <strong>Data gasto:</strong>
-    <%= despesa.data_gasto %>
-  </p>
+      <div class="col-md-6 mb-2">
+        <strong>Data da compra:</strong><br>
+        <span><%= formatar_data(despesa.data_gasto) %></span>
+      </div>
 
-  <p>
-    <strong>Valor:</strong>
-    <%= despesa.valor %>
-  </p>
+      <div class="col-md-6 mb-2">
+        <strong>Valor:</strong><br>
+        <span>R$ <%= number_to_currency(despesa.valor || 0, unit: "", separator: ",", delimiter: ".", precision: 2) %></span>
+      </div>
+    </div>
 
-  <p>
-    <strong>Status:</strong>
-    <%= despesa.status %>
-  </p>
-
-  <p>
-    <strong>Quantidade parcelas:</strong>
-    <%= despesa.quantidade_parcelas %>
-  </p>
-
-  <p>
-    <strong>Parcela atual:</strong>
-    <%= despesa.parcela_atual %>
-  </p>
-
-  <p>
-    <strong>Dia vencimento:</strong>
-    <%= despesa.dia_vencimento %>
-  </p>
-
-  <p>
-    <strong>Data vencimento:</strong>
-    <%= despesa.data_vencimento %>
-  </p>
-
-  <p>
-    <strong>Alertar vencimento:</strong>
-    <%= despesa.alertar_vencimento %>
-  </p>
-
+    <div class="mt-4 d-flex justify-content-end gap-2">
+      <%= link_to "Editar", edit_despesa_path(@despesa), class: "btn btn-outline-primary btn-sm" %>
+      <%= button_to "Excluir", @despesa, method: :delete, data: { confirm: "Tem certeza que deseja excluir esta despesa?" }, class: "btn btn-outline-danger btn-sm" %>
+    </div>    
+  </div>
 </div>

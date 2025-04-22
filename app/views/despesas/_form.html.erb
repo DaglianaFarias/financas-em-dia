@@ -12,14 +12,15 @@
           <%= f.select :orcamento_id, options_for_select(descricao_orcamentos), {}, class: 'form-control' %>
         </div>
         <div class="col-md-6">
-          <%= f.input :descricao, label: 'Detalhes' %>
+          <%= f.label :descricao, "Detalhes" %>
+          <%= f.input :descricao, label: false %>
         </div>
       </div>
       <div class="row">
         <div class="col-md-4">
           <%= f.input :valor %>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 mt-2">
           <%= f.label :tipo, "Forma de pagamento" %>
           <%= f.select :forma_pagamento_id, options_for_select(formas_de_pagamento), {}, class: 'form-control' %>
         </div>

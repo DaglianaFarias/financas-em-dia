@@ -1,8 +1,7 @@
-
 <div class="text-end mb-3">
   <%= link_to request.referer, class: "btn btn-outline-secondary btn-sm d-inline-flex align-items-center" do %>
     <i class="fa-solid fa-arrow-left me-2"></i> Voltar
-  <% end %>
+    <% end %>
 </div>
 <div class="card shadow-sm rounded-4 border-0">
   <div class="card-body">
@@ -47,63 +46,78 @@
     <div class="card-footer">
       <div class="d-flex">
         <div class="ms-auto">
-          <%= link_to "Adicionar Receita", new_receita_path(usuario_id: usuario.id), class: "btn btn-sm btn-outline-primary" %>
-          <%= link_to "Adicionar forma de pagamento", new_forma_pagamento_path(usuario_id: usuario.id), class: "btn btn-sm btn-outline-primary" %>
+          <%= link_to "Adicionar Receita" , new_receita_path(usuario_id: usuario.id),
+            class: "btn btn-sm btn-outline-primary" %>
+            <%= link_to "Adicionar forma de pagamento" , new_forma_pagamento_path(usuario_id: usuario.id),
+              class: "btn btn-sm btn-outline-primary" %>
         </div>
       </div>
     </div>
-  </div><br>
+</div><br>
 
-  <div class="card shadow-sm rounded-4 border-0">
-    <div class="card-body">
-      <h6 class="card-title mb-0 fw-bold">
-        <i class="fa-solid fa-credit-card" style="color: #74C0FC;"></i>&nbsp;
-        Formas de pagamento cadastradas
-      </h6>
-      <hr>
-      <table class="table table-borderless">
-        <tbody>
-          <% usuario.forma_pagamentos&.each do |forma_pagamento| %>
-            <tr class="align-middle">
-              <td><%= forma_pagamento.nome %></td>
-              <td>
-                <%= t("attributes.forma_pagamento_tipos.#{forma_pagamento.tipo}") %>
+<div class="card shadow-sm rounded-4 border-0">
+  <div class="card-body">
+    <h6 class="card-title mb-0 fw-bold">
+      <i class="fa-solid fa-credit-card" style="color: #74C0FC;"></i>&nbsp;
+      Formas de pagamento cadastradas
+    </h6>
+    <hr>
+    <table class="table table-borderless">
+      <tbody>
+        <% usuario.forma_pagamentos&.each do |forma_pagamento| %>
+          <tr class="align-middle">
+            <td>
+              <%= forma_pagamento.nome %>
+            </td>
+            <td>
+              <%= t("attributes.forma_pagamento_tipos.#{forma_pagamento.tipo}") %>
                 <% if forma_pagamento.cartao_credito? %>
-                  <p class="mb-0 text-muted small">Melhor dia de compra: <%= forma_pagamento.melhor_dia_compra || "Não cadastrado" %></p>
-                  <p class="mb-0 text-muted small">Vencimento: <%= forma_pagamento.dia_vencimento_fatura || "Não cadastrado" %></p>
+                  <p class="mb-0 text-muted small">Melhor dia de compra: <%= forma_pagamento.melhor_dia_compra || "Não cadastrado" %>
+                  </p>
+                  <p class="mb-0 text-muted small">Vencimento: <%= forma_pagamento.dia_vencimento_fatura || "Não cadastrado" %>
+                  </p>
                 <% end %>
-              </td>
-              <td><%= link_to "Editar", edit_forma_pagamento_path(forma_pagamento, usuario_id: usuario.id) %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div><br>
-
-  <div class="card shadow-sm rounded-4 border-0">
-    <div class="card-body">
-      <div class="d-flex">
-        <h6 class="card-title mb-0 fw-bold">
-          <i class="fa-solid fa-sack-dollar" style="color: #f2ce4a;"></i>&nbsp;
-          Receitas
-        </h6>
-        <div class="ms-auto">
-          <span class="fw-bold">Total: <%= number_to_currency(usuario&.receitas&.sum(:valor) || 0, unit: "R$", separator: ",", delimiter: ".", precision: 2)  %></span>
-        </div>
-      </div>
-      <hr>
-      <table class="table table-borderless">
-        <tbody>
-          <% usuario.receitas&.each do |receita| %>
-          <tr>
-            <td><%= receita.descricao %></td>
-            <td class="fw-bold mb-0"><%= number_to_currency(receita.valor || 0, unit: "R$", separator: ",", delimiter: ".", precision: 2) %></td>
-            <td><%= link_to "Editar", edit_receita_path(receita, usuario_id: usuario.id) %></td>
+            </td>
+            <td>
+              <%= link_to "Editar" , edit_forma_pagamento_path(forma_pagamento, usuario_id: usuario.id) %>
+            </td>
           </tr>
           <% end %>
-        </tbody>
-      </table>
+      </tbody>
+    </table>
+  </div>
+</div><br>
+
+<div class="card shadow-sm rounded-4 border-0">
+  <div class="card-body">
+    <div class="d-flex">
+      <h6 class="card-title mb-0 fw-bold">
+        <i class="fa-solid fa-sack-dollar" style="color: #f2ce4a;"></i>&nbsp;
+        Receitas
+      </h6>
+      <div class="ms-auto">
+        <span class="fw-bold">Total: <%= number_to_currency(usuario&.receitas&.sum(:valor) || 0, unit: "R$" ,
+            separator: "," , delimiter: "." , precision: 2) %></span>
+      </div>
     </div>
+    <hr>
+    <table class="table table-borderless">
+      <tbody>
+        <% usuario.receitas&.each do |receita| %>
+          <tr>
+            <td>
+              <%= receita.descricao %>
+            </td>
+            <td class="fw-bold mb-0">
+              <%= number_to_currency(receita.valor || 0, unit: "R$" , separator: "," , delimiter: "." , precision: 2) %>
+            </td>
+            <td>
+              <%= link_to "Editar" , edit_receita_path(receita, usuario_id: usuario.id) %>
+            </td>
+          </tr>
+          <% end %>
+      </tbody>
+    </table>
+  </div>
   <% end %>
 </div><br>

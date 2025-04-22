@@ -15,7 +15,6 @@ class RelatorioController < ApplicationController
     @contas_cadastradas = @unidade_familiar
                           .despesas
                           .where(categoria: 'contas')
-                          .where('created_at >= ?', data_atual)
                           .order(dia_vencimento: :asc)
 
     @valor_total_contas = @contas_cadastradas.sum(:valor)
@@ -23,7 +22,7 @@ class RelatorioController < ApplicationController
     @usuarios_unidade_familiar = @unidade_familiar&.usuarios
     @total_receitas = @usuarios_unidade_familiar.where(status: 'ativo')&.joins(:receitas).sum("receitas.valor")
   
-    @orcamentos = @unidade_familiar.orcamentos.where('created_at >= ?', data_atual)
+    @orcamentos = @unidade_familiar.orcamentos
     @despesa_total_categoria_gastos = 0
   
     @usuarios_unidade_familiar.each do |usuario|
@@ -49,7 +48,7 @@ class RelatorioController < ApplicationController
   
     @total_contas_previstas = @valor_total_contas + @unidade_familiar.orcamentos.sum(:valorEstimado)
   
-    @dados_orcamento = @unidade_familiar.orcamentos.where('created_at >= ?', data_atual).group(:categoria).sum(:valorEstimado)
+    @dados_orcamento = @unidade_familiar.orcamentos.group(:categoria).sum(:valorEstimado)
     @dados_orcamento[:contas] = @valor_total_contas
 
     @valor_total_contas_pagas = somar_contas_pagas(data_atual)
