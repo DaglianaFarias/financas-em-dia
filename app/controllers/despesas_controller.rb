@@ -10,6 +10,7 @@ class DespesasController < ApplicationController
 
   def new
     @despesa = Despesa.new
+    @despesa.categoria = params[:categoria].present? ? params[:categoria] : 'gastos'
   end
 
   def edit

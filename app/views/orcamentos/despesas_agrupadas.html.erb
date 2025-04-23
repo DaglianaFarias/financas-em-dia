@@ -1,3 +1,62 @@
+<div class="card shadow-sm border-0 rounded-4 h-100 mb-4">
+  <div class="card-header bg-white border-bottom-0 rounded-top-4 px-4 py-3">
+    <h6 class="mb-1 text-dark fw-semibold">
+      Compras parceladas
+    </h6>
+    <small class="text-muted">Inclui todas as contas parceladas para o período selecionado.</small>
+    <div class="text-end">
+      <%= link_to "Adicionar", new_despesa_path(categoria: 'parcelas'), class: 'btn btn-sm btn-primary' %>
+    </div>
+  </div>
+
+  <div class="card-body p-0">
+    <% if @compras_parceladas.present? %>
+      <table class="table table-hover mb-0 align-middle">
+        <thead class="bg-light text-muted small">
+          <tr>
+            <th class="ps-4">Descrição</th>
+            <th>Valor total</th>
+            <th>Valor da parcela</th>
+            <th>Parcelas</th>
+            <th class="pe-4 text-end">Data da compra</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @compras_parceladas.each do |despesa| %>
+            <tr class="small">
+              <td class="ps-4"><%= despesa.descricao %></td>
+              <td>R$
+                <%= valor_total_despesa_parcelada(despesa) %>
+              </td>
+              <td>
+                R$ <%= number_to_currency(despesa.valor, unit: "", separator: ",", delimiter: ".", precision: 2) %>
+              </td>
+              <td>
+                <span class="badge bg-info">
+                  <%= parcela_atual_calculada(despesa) %> / <%= despesa.quantidade_parcelas %>
+                </span>
+              </td>
+              <td class="pe-4 text-end"><%= formatar_data(despesa.data_gasto) %></td>
+              <td class="text-center">
+                <%= link_to edit_despesa_path(despesa), class: 'btn btn-sm btn-outline-success', title: 'Editar', data: { bs_toggle: 'tooltip' } do %>
+                  <i class="fa-solid fa-pen-to-square"></i>
+                <% end %>
+                <%= link_to despesa_path(despesa), method: :delete, data: { confirm: 'Tem certeza?', bs_toggle: 'tooltip' }, class: 'btn btn-sm btn-outline-danger', title: 'Excluir' do %>
+                  <i class="fa-solid fa-trash-can"></i>
+                <% end %>
+              </td>                      
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="px-4 py-3 text-center text-muted small">
+        Nenhuma despesa cadastrada para o período.
+      </div>
+    <% end %>
+  </div>
+</div>
 
 <% @despesas_orcamentos.each_slice(2) do |par_orcamentos| %>
   <div class="row">

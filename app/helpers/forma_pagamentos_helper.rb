@@ -1,16 +1,12 @@
 module FormaPagamentosHelper
 
   def formas_de_pagamento
-    usuarios = @unidade_familiar.usuarios.includes(:forma_pagamentos)
-  
-    meios_de_pagamento = []
-    usuarios.each do |usuario|
-      usuario.forma_pagamentos.each do |forma_pagamento|
-        meios_de_pagamento << [ "#{forma_pagamento.nome} | #{t("attributes.forma_pagamento_tipos.#{forma_pagamento.tipo}")}", forma_pagamento.id ]
+    @unidade_familiar.usuarios.includes(:forma_pagamentos).each_with_object({}) do |usuario, hash|
+      opcoes = usuario.forma_pagamentos.map do |fp|
+        ["#{fp.nome} | #{I18n.t("attributes.forma_pagamento_tipos.#{fp.tipo}")}", fp.id]
       end
+      hash[usuario.nome] = opcoes
     end
-  
-    meios_de_pagamento
   end
 
   def formatar_nome_e_tipo_pagamento(forma_pagamento)

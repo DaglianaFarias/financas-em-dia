@@ -1,4 +1,3 @@
-
 <%= simple_form_for(@despesa) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
@@ -6,28 +5,64 @@
   <div class="card">
     <div class="card-body">
       <div class="row">
-        <% f.hidden_field :categoria, value: Despesa.categorias[:gastos] %>
-        <div class="col-md-6">
-          <%= f.label :orcamento, "Categoria da despesa" %>
-          <%= f.select :orcamento_id, options_for_select(descricao_orcamentos), {}, class: 'form-control' %>
-        </div>
-        <div class="col-md-6">
-          <%= f.label :descricao, "Detalhes" %>
-          <%= f.input :descricao, label: false %>
-        </div>
+        <%= f.hidden_field :categoria, value: @despesa.categoria %>
+
+        <% if @despesa.gastos? %>
+          <div class="col-md-6">
+            <%= f.label :orcamento, "Categoria da despesa" %>
+            <%= f.select :orcamento_id, options_for_select(descricao_orcamentos), {}, class: 'form-control' %>
+          </div>
+          <div class="col-md-6">
+            <%= f.label :descricao, "Detalhes" %>
+            <%= f.input :descricao, label: false %>
+          </div>
+        <% else %>
+          <div class="col-md-12">
+            <%= f.label :descricao, "Detalhes" %>
+            <%= f.input :descricao, label: false %>
+          </div>
+        <% end %>
       </div>
+
       <div class="row">
-        <div class="col-md-4">
-          <%= f.input :valor %>
-        </div>
-        <div class="col-md-4 mt-2">
-          <%= f.label :tipo, "Forma de pagamento" %>
-          <%= f.select :forma_pagamento_id, options_for_select(formas_de_pagamento), {}, class: 'form-control' %>
-        </div>
-        <div class="col-md-4">
-          <%= f.input :data_gasto, label: "Data da compra" %>
-        </div>
+        <% if @despesa.parcelas? %>
+          <div class="col-md-4">
+            <%= f.input :valor, label: "Valor da parcela" %>
+          </div>
+          <div class="col-md-4">
+            <%= f.input :quantidade_parcelas, label: "Quantidade de parcelas" %>
+          </div>
+          <div class="col-md-4">
+            <%= f.input :parcela_atual, label: "Parcela atual" %>
+          </div>
+        <% else %>
+          <div class="col-md-6">
+            <%= f.input :valor %>
+          </div>
+          <div class="col-md-6">
+            <%= f.input :data_gasto, label: "Data da compra" %>
+          </div>
+        <% end %>
       </div>
+
+      <% unless @despesa.parcelas? %>
+        <div class="row">
+          <div class="col-md-6">
+            <%= f.label :tipo, "Forma de pagamento" %>
+            <%= f.select :forma_pagamento_id, grouped_options_for_select(formas_de_pagamento), {}, class: 'form-control' %>
+          </div>
+        </div>
+      <% else %>
+        <div class="row mt-2">
+          <div class="col-md-6 mt-2">
+            <%= f.label :tipo, "Forma de pagamento" %>
+            <%= f.select :forma_pagamento_id, grouped_options_for_select(formas_de_pagamento), {}, class: 'form-control' %>
+          </div>
+          <div class="col-md-6">
+            <%= f.input :data_gasto, label: "Data da compra" %>
+          </div>
+        </div>
+      <% end %>
     </div>
 
     <div class="card-footer text-end">

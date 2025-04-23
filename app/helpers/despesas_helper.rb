@@ -39,4 +39,20 @@ module DespesasHelper
                   style: "width: #{utilizado}%;"
     end
   end
+
+  def valor_total_despesa_parcelada(despesa)
+    return 0 if despesa.blank?
+
+    valor = despesa.valor * despesa.quantidade_parcelas
+    number_to_currency(valor, unit: "", separator: ",", delimiter: ".", precision: 2)
+  end
+
+  def parcela_atual_calculada(despesa)
+    return nil unless despesa.parcelas? && despesa.quantidade_parcelas.present?
+
+    meses_passados = (Date.current.year * 12 + Date.current.month) - (despesa.data_gasto.year * 12 + despesa.data_gasto.month)
+    atual = meses_passados + 1
+
+    atual > despesa.quantidade_parcelas ? despesa.quantidade_parcelas : atual
+  end
 end
