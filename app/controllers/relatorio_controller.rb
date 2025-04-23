@@ -38,7 +38,7 @@ class RelatorioController < ApplicationController
         despesas.each do |despesa|
           orcamento = despesa.orcamento
           next unless orcamento
-  
+
           @despesas_agrupadas[orcamento] << despesa
         end
       end

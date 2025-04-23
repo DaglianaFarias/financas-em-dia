@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get 'contas', to: 'despesas#listar_contas', as: 'listar_contas'
   post 'pagamento_despesa', to: 'despesas#pagamento_despesa', as: 'pagamento_despesa'
 
+  get 'despesas_agrupadas', to: 'orcamentos#despesas_agrupadas'
+
   get 'area_administrativa', to: 'administrativo#area_administrativa'
 
   require 'sidekiq/web'

@@ -43,6 +43,11 @@ class OrcamentosController < ApplicationController
     end
   end
 
+  def despesas_agrupadas
+    @despesas_orcamentos = @unidade_familiar.orcamentos.includes(:despesas)
+    @compras_parceladas = @unidade_familiar.despesas.where(categoria: 'parcelas')
+  end
+
   private
     def set_orcamento
       @orcamento = Orcamento.find(params[:id])
