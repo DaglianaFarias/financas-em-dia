@@ -1,0 +1,84 @@
+<div class="card shadow-sm border-0 rounded-4 h-100 mb-4">
+  <div class="card-header bg-white border-bottom-0 rounded-top-4 px-4 py-3">
+    <div class="d-flex justify-content-between align-items-start flex-wrap mb-3">
+      <div>
+        <h6 class="mb-1 text-dark fw-semibold">
+          <i class="fa-solid fa-credit-card me-1 text-primary"></i>
+          Compras parceladas
+        </h6>
+        <small class="text-muted">Inclui todas as contas parceladas para o período selecionado.</small>
+      </div>
+      <%= link_to "Adicionar", new_despesa_path(categoria: 'parcelas'), class: 'btn btn-sm btn-outline-primary mt-2 mt-md-0' %>
+    </div>
+
+    <% valor_total_categoria_parcelas = valor_total_parcelas(@compras_parceladas) %>
+    <% falta_pagar = valor_faltante_a_pagar(@compras_parceladas) %>
+
+    <div class="d-flex gap-2 flex-wrap">
+      <span class="badge rounded-pill bg-primary px-3 py-2">
+        <i class="fa-solid fa-wallet me-1"></i>
+        Valor total: R$ 
+        <%= number_to_currency(valor_total_categoria_parcelas || 0, unit: "", separator: ",", delimiter: ".", precision: 2) %>
+      </span>
+
+      <span class="badge rounded-pill bg-warning text-dark px-3 py-2">
+        <i class="fa-solid fa-exclamation-circle me-1"></i>
+        Total restante a pagar: R$ 
+        <%= number_to_currency(falta_pagar || 0, unit: "", separator: ",", delimiter: ".", precision: 2) %>
+      </span>
+    </div>
+    <hr class="opacity-25">    
+  </div>
+
+  <div class="card-body p-0">
+    <% if @compras_parceladas.present? %>
+      <table class="table table-hover mb-0 align-middle table-borderless">
+        <thead class="bg-light text-muted small">
+          <tr>
+            <th class="ps-4">Descrição</th>
+            <th>Valor total</th>
+            <th>Valor da parcela</th>
+            <th>Parcelas</th>
+            <th class="pe-4 text-end">Data da compra</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @compras_parceladas.each do |despesa| %>
+            <tr class="small">
+              <td class="ps-4"><%= despesa.descricao %></td>
+              <td>R$
+                <%= number_to_currency(valor_total_despesa_parcelada(despesa), unit: "", separator: ",", delimiter: ".", precision: 2) %>
+              </td>
+              <td>
+                R$ <%= number_to_currency(despesa.valor, unit: "", separator: ",", delimiter: ".", precision: 2) %>
+              </td>
+              <td>
+                <span class="badge bg-info">
+                  <%= parcela_atual_calculada(despesa) %> / <%= despesa.quantidade_parcelas %>
+                </span>
+              </td>
+              <td class="pe-4 text-end"><%= formatar_data(despesa.data_gasto) %></td>
+              <td>
+                <div class="d-flex gap-2 justify-content-center">
+                  <%= link_to edit_despesa_path(despesa), title: 'Editar', data: { bs_toggle: 'tooltip' }, class: 'text-success' do %>
+                    <i class="fa-solid fa-pen-to-square icon-action"></i>
+                  <% end %>
+                
+                  <%= link_to despesa_path(despesa), method: :delete, data: { confirm: 'Tem certeza?', bs_toggle: 'tooltip' }, title: 'Excluir', class: 'text-danger' do %>
+                    <i class="fa-solid fa-trash-can icon-action"></i>
+                  <% end %>
+                </div>               
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="px-4 py-4 text-center text-muted">
+        <i class="fa-solid fa-circle-info fa-lg d-block mb-2"></i>
+        Nenhuma despesa cadastrada para o período.
+      </div>
+    <% end %>
+  </div>
+</div>

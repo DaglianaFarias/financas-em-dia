@@ -43,8 +43,7 @@ module DespesasHelper
   def valor_total_despesa_parcelada(despesa)
     return 0 if despesa.blank?
 
-    valor = despesa.valor * despesa.quantidade_parcelas
-    number_to_currency(valor, unit: "", separator: ",", delimiter: ".", precision: 2)
+    despesa.valor * despesa.quantidade_parcelas
   end
 
   def parcela_atual_calculada(despesa)
@@ -55,4 +54,15 @@ module DespesasHelper
 
     atual > despesa.quantidade_parcelas ? despesa.quantidade_parcelas : atual
   end
+
+  def valor_total_parcelas(despesas)
+    despesas.sum { |despesa| valor_total_despesa_parcelada(despesa) }
+  end
+
+  def valor_faltante_a_pagar(despesas)
+    despesas.sum do |despesa|
+      parcelas_faltantes = despesa.quantidade_parcelas - parcela_atual_calculada(despesa)
+      parcelas_faltantes * despesa.valor
+    end
+  end 
 end

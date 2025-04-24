@@ -8,9 +8,16 @@
         <%= f.hidden_field :categoria, value: @despesa.categoria %>
 
         <% if @despesa.gastos? %>
+          <% readonly = @despesa.orcamento_id.present? %>
           <div class="col-md-6">
             <%= f.label :orcamento, "Categoria da despesa" %>
-            <%= f.select :orcamento_id, options_for_select(descricao_orcamentos), {}, class: 'form-control' %>
+            <%= f.select :orcamento_id, 
+             options_for_select(descricao_orcamentos, @despesa.orcamento_id),
+             {}, 
+             class: 'form-control', 
+             disabled: readonly %>
+
+            <%= f.hidden_field :orcamento_id if readonly %>
           </div>
           <div class="col-md-6">
             <%= f.label :descricao, "Detalhes" %>
