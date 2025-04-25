@@ -23,5 +23,9 @@ module ApplicationHelper
       data = hoje << i
       [I18n.l(data, format: "%B/%Y").capitalize, data.strftime("%Y-%m")]
     end
-  end   
+  end
+
+  def select_meses
+    t("date.month_names").compact.each_with_index.map { |mes, i| [mes, i + 1] }
+  end
 end

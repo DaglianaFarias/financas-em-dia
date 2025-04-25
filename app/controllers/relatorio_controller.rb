@@ -4,14 +4,15 @@ class RelatorioController < ApplicationController
   before_action :redirect_if_user_admin
 
   def visao_geral
-    data_atual = @data_referencia
-
     @despesa_total_categoria_gastos = 0
-    @gastos_por_orcamento = 0
     @despesas_agrupadas = Hash.new { |hash, key| hash[key] = [] }
     @totais_por_orcamento = nil
   
-    @ultimas_despesas_lancadas = @unidade_familiar.despesas.where(categoria: 'gastos').order(created_at: :desc).limit(8)
+    @ultimas_despesas_lancadas = @unidade_familiar
+                                  .despesas.where(categoria: 'gastos')
+                                  .order(created_at: :desc)
+                                  .limit(8)
+    
     @contas_cadastradas = @unidade_familiar
                           .despesas
                           .where(categoria: 'contas')
@@ -29,7 +30,7 @@ class RelatorioController < ApplicationController
       next if usuario.forma_pagamentos.blank?
   
       usuario.forma_pagamentos.each do |forma_pagamento|
-        data_inicio, data_fim = calcular_periodo_pagamento(data_atual, forma_pagamento)
+        data_inicio, data_fim = calcular_periodo_pagamento(@data_referencia, forma_pagamento)
   
         @despesa_total_categoria_gastos += calcular_despesas_gastos(forma_pagamento, data_inicio, data_fim)
   
@@ -51,7 +52,7 @@ class RelatorioController < ApplicationController
     @dados_orcamento = @unidade_familiar.orcamentos.group(:categoria).sum(:valorEstimado)
     @dados_orcamento[:contas] = @valor_total_contas
 
-    @valor_total_contas_pagas = somar_contas_pagas(data_atual)
+    @valor_total_contas_pagas = somar_contas_pagas(@data_referencia)
 
     @despesa_total = @valor_total_contas_pagas + @despesa_total_categoria_gastos
   end
@@ -94,8 +95,10 @@ class RelatorioController < ApplicationController
   end
 
   def setar_periodo
-    if params[:filtrar_periodo] && params[:filtrar_periodo][:mes_ano].present?
-      ano, mes = params[:filtrar_periodo][:mes_ano].split("-").map(&:to_i)
+    if params[:filtro_periodo] && params[:filtro_periodo][:mes_periodo].present? && params[:filtro_periodo][:ano_periodo].present?
+      mes = params[:filtro_periodo][:mes_periodo].to_i
+      ano = params[:filtro_periodo][:ano_periodo].to_i
+
       @data_referencia = Date.new(ano, mes, 1)
     else
       @data_referencia = Date.today

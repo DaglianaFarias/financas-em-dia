@@ -55,14 +55,14 @@
       <% unless @despesa.parcelas? %>
         <div class="row">
           <div class="col-md-6">
-            <%= f.label :tipo, "Forma de pagamento" %>
+            <%= f.label :forma_pagamento_id, "Forma de pagamento" %>
             <%= f.select :forma_pagamento_id, grouped_options_for_select(formas_de_pagamento), {}, class: 'form-control' %>
           </div>
         </div>
       <% else %>
         <div class="row mt-2">
           <div class="col-md-6 mt-2">
-            <%= f.label :tipo, "Forma de pagamento" %>
+            <%= f.label :forma_pagamento_id, "Forma de pagamento" %>
             <%= f.select :forma_pagamento_id, grouped_options_for_select(formas_de_pagamento), {}, class: 'form-control' %>
           </div>
           <div class="col-md-6">
