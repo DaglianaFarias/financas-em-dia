@@ -21,8 +21,8 @@
           <%= f.input :valor %>
         </div>
         <div class="col-md-4 mt-2">
-          <%= f.label :tipo, "Forma de pagamento" %>
-          <%= f.select :forma_pagamento_id, options_for_select(formas_de_pagamento), {}, class: 'form-control' %>
+          <%= f.label :forma_pagamento_id, "Forma de pagamento" %>
+          <%= f.select :forma_pagamento_id, grouped_options_for_select(formas_de_pagamento), {}, class: 'form-control' %>
         </div>
         <div class="col-md-4">
           <%= f.input :data_gasto, label: "Data da compra" %>
