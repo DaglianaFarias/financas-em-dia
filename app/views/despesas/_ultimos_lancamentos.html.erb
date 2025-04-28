@@ -40,8 +40,8 @@
             </div>
 
             <div class="col-md-2 ms-auto text-end">
-              <p class="mb-0 fw-bold text-success">
-                R$ <%= number_to_currency(despesa.valor, unit: "", separator: ",", delimiter: ".", precision: 2) %>
+              <p class="mb-0 fw-bold text-danger">
+                R$ -<%= number_to_currency(despesa.valor, unit: "", separator: ",", delimiter: ".", precision: 2) %>
               </p>
               <p class="mb-0 text-muted small"><%= despesa.data_gasto.strftime("%d/%m/%Y") %></p>
             </div>

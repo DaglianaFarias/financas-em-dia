@@ -8,29 +8,21 @@ class RelatorioController < ApplicationController
     @despesas_agrupadas = Hash.new { |hash, key| hash[key] = [] }
     @totais_por_orcamento = nil
   
-    @ultimas_despesas_lancadas = @unidade_familiar
-                                  .despesas.where(categoria: 'gastos')
-                                  .order(created_at: :desc)
-                                  .limit(8)
-    
-    @contas_cadastradas = @unidade_familiar
-                          .despesas
-                          .where(categoria: 'contas')
-                          .order(dia_vencimento: :asc)
+    @ultimos_gastos_lancados = @unidade_familiar.ultimos_gastos_lancados
+    @despesas_categoria_contas = @unidade_familiar.contas
 
-    @valor_total_contas = @contas_cadastradas.sum(:valor)
+    @valor_total_contas = @despesas_categoria_contas.sum(:valor)
   
     @usuarios_unidade_familiar = @unidade_familiar&.usuarios
     @total_receitas = @usuarios_unidade_familiar.where(status: 'ativo')&.joins(:receitas).sum("receitas.valor")
   
-    @orcamentos = @unidade_familiar.orcamentos
     @despesa_total_categoria_gastos = 0
   
     @usuarios_unidade_familiar.each do |usuario|
       next if usuario.forma_pagamentos.blank?
   
       usuario.forma_pagamentos.each do |forma_pagamento|
-        data_inicio, data_fim = calcular_periodo_pagamento(@data_referencia, forma_pagamento)
+        data_inicio, data_fim = calcular_periodo_pagamento(forma_pagamento)
   
         @despesa_total_categoria_gastos += calcular_despesas_gastos(forma_pagamento, data_inicio, data_fim)
   
@@ -59,15 +51,14 @@ class RelatorioController < ApplicationController
   
   private
   
-  def calcular_periodo_pagamento(data_atual, forma_pagamento)
+  def calcular_periodo_pagamento(forma_pagamento)
     if forma_pagamento.cartao_credito?
       melhor_dia_compra = forma_pagamento.melhor_dia_compra&.to_i
-  
-      data_inicio = data_atual.change(day: melhor_dia_compra) << 1 rescue (data_atual.beginning_of_month << 1).change(day: melhor_dia_compra)
-      data_fim = data_atual.change(day: melhor_dia_compra) rescue data_atual.end_of_month.change(day: melhor_dia_compra)
+      data_inicio = @data_referencia.change(day: melhor_dia_compra) << 1 rescue (@data_referencia.beginning_of_month << 1).change(day: melhor_dia_compra)
+      data_fim = @data_referencia.change(day: melhor_dia_compra) rescue @data_referencia.end_of_month.change(day: melhor_dia_compra)
     else
-      data_inicio = data_atual.beginning_of_month
-      data_fim = data_atual.end_of_month
+      data_inicio = @data_referencia.beginning_of_month
+      data_fim = @data_referencia.end_of_month
     end
   
     [data_inicio, data_fim]
@@ -89,7 +80,7 @@ class RelatorioController < ApplicationController
   end
 
   def somar_contas_pagas(data_referencia)
-    @contas_cadastradas.sum do |conta|
+    @despesas_categoria_contas.sum do |conta|
       conta.possui_historico_pagamento?(data_referencia) ? conta.valor : 0
     end
   end
