@@ -36,9 +36,7 @@ class RelatorioController < ApplicationController
         end
       end
     end
-  
-    @totais_por_orcamento = calcular_totais_por_orcamento
-  
+
     @total_contas_previstas = @valor_total_contas + @unidade_familiar.orcamentos.sum(:valorEstimado)
   
     @dados_orcamento = @unidade_familiar.orcamentos.group(:categoria).sum(:valorEstimado)
@@ -47,6 +45,12 @@ class RelatorioController < ApplicationController
     @valor_total_contas_pagas = somar_contas_pagas(@data_referencia)
 
     @despesa_total = @valor_total_contas_pagas + @despesa_total_categoria_gastos
+
+    @totais_por_orcamento = calcular_totais_por_orcamento.tap do |totais|
+      @unidade_familiar.orcamentos.each do |orcamento|
+        totais[orcamento] ||= 0
+      end
+    end
   end
   
   private
