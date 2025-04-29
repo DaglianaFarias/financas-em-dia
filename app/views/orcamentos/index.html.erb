@@ -11,6 +11,7 @@
           <th>Categoria</th>
           <th>Descrição</th>
           <th class="text-end">Valor Estimado</th>
+          <th>Criado em</th>
           <th class="text-end">Ações</th>
         </tr>
       </thead>
@@ -25,6 +26,9 @@
               <td><strong><%= orcamento.categoria %></strong></td>
               <td class="text-muted"><%= orcamento.descricao %></td>
               <td class="text-end">R$ <%= number_with_precision(orcamento.valorEstimado, precision: 2, separator: ",") %></td>
+              <td class="text-muted" style="font-size: 12px;">
+                <%= orcamento.created_at.present? ? orcamento.created_at.strftime("%d/%m/%Y") : "Data não disponível" %>
+              </td>            
               <td class="text-end">
                 <%= link_to 'Adicionar despesa', new_despesa_path(orcamento: orcamento), class: 'btn btn-sm btn-outline-primary' %>
                 <%= link_to 'Editar', edit_orcamento_path(orcamento), class: 'btn btn-sm btn-outline-secondary' %>

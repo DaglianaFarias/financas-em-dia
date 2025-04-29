@@ -7,44 +7,22 @@ class RelatorioController < ApplicationController
     @despesa_total_categoria_gastos = 0
     @despesas_agrupadas = Hash.new { |hash, key| hash[key] = [] }
     @totais_por_orcamento = nil
+    @ultimos_gastos_lancados = nil
   
-    @ultimos_gastos_lancados = @unidade_familiar.ultimos_gastos_lancados
+    @total_receitas = @unidade_familiar.receita_total
     @despesas_categoria_contas = @unidade_familiar.contas
+    valor_total_contas = @despesas_categoria_contas.sum(:valor)
 
-    @valor_total_contas = @despesas_categoria_contas.sum(:valor)
-  
-    @usuarios_unidade_familiar = @unidade_familiar&.usuarios
-    @total_receitas = @usuarios_unidade_familiar.where(status: 'ativo')&.joins(:receitas).sum("receitas.valor")
-  
-    @despesa_total_categoria_gastos = 0
-  
-    @usuarios_unidade_familiar.each do |usuario|
-      next if usuario.forma_pagamentos.blank?
-  
-      usuario.forma_pagamentos.each do |forma_pagamento|
-        data_inicio, data_fim = calcular_periodo_pagamento(forma_pagamento)
-  
-        @despesa_total_categoria_gastos += calcular_despesas_gastos(forma_pagamento, data_inicio, data_fim)
-  
-        despesas = buscar_despesas_por_periodo(forma_pagamento, data_inicio, data_fim)
-  
-        despesas.each do |despesa|
-          orcamento = despesa.orcamento
-          next unless orcamento
+    agrupar_despesas
 
-          @despesas_agrupadas[orcamento] << despesa
-        end
-      end
-    end
+    @total_contas_previstas = valor_total_contas + @unidade_familiar.orcamentos.sum(:valorEstimado)
 
-    @total_contas_previstas = @valor_total_contas + @unidade_familiar.orcamentos.sum(:valorEstimado)
-  
     @dados_orcamento = @unidade_familiar.orcamentos.group(:categoria).sum(:valorEstimado)
-    @dados_orcamento[:contas] = @valor_total_contas
+    @dados_orcamento[:contas] = valor_total_contas
 
-    @valor_total_contas_pagas = somar_contas_pagas(@data_referencia)
+    valor_total_contas_pagas = somar_contas_pagas(@data_referencia)
 
-    @despesa_total = @valor_total_contas_pagas + @despesa_total_categoria_gastos
+    @despesa_total = valor_total_contas_pagas + @despesa_total_categoria_gastos
 
     @totais_por_orcamento = calcular_totais_por_orcamento.tap do |totais|
       @unidade_familiar.orcamentos.each do |orcamento|
@@ -52,10 +30,28 @@ class RelatorioController < ApplicationController
       end
     end
   end
-  
+
   private
   
-  def calcular_periodo_pagamento(forma_pagamento)
+  def agrupar_despesas
+    despesas_no_periodo = []
+
+    @unidade_familiar&.usuarios&.each do |usuario|
+      next if usuario.forma_pagamentos.blank?
+
+      usuario.forma_pagamentos.each do |forma_pagamento|
+        data_inicio, data_fim = definir_periodo_referencia_pagamento(forma_pagamento)
+
+        despesas_no_periodo.concat(forma_pagamento.despesas_no_periodo(data_inicio, data_fim))
+      end
+    end
+
+    @despesa_total_categoria_gastos = despesas_no_periodo.sum { |despesa| despesa.valor }
+    @despesas_agrupadas = despesas_no_periodo.group_by(&:orcamento)
+    @ultimos_gastos_lancados = despesas_no_periodo.sort_by(&:created_at)&.reverse&.first(5)
+  end
+  
+  def definir_periodo_referencia_pagamento(forma_pagamento)
     if forma_pagamento.cartao_credito?
       melhor_dia_compra = forma_pagamento.melhor_dia_compra&.to_i
       data_inicio = @data_referencia.change(day: melhor_dia_compra) << 1 rescue (@data_referencia.beginning_of_month << 1).change(day: melhor_dia_compra)
@@ -66,17 +62,6 @@ class RelatorioController < ApplicationController
     end
   
     [data_inicio, data_fim]
-  end
-  
-  def calcular_despesas_gastos(forma_pagamento, data_inicio, data_fim)
-    forma_pagamento.despesas.where(categoria: 'gastos', data_gasto: data_inicio..data_fim)&.sum(:valor) || 0
-  end
-  
-  def buscar_despesas_por_periodo(forma_pagamento, data_inicio, data_fim)
-    forma_pagamento.despesas
-      .includes(:orcamento)
-      .where(data_gasto: data_inicio..data_fim)
-      .where(orcamentos: { unidade_familiar_id: @unidade_familiar.id })
   end
   
   def calcular_totais_por_orcamento

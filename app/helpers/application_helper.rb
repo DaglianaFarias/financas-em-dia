@@ -28,4 +28,10 @@ module ApplicationHelper
   def select_meses
     t("date.month_names").compact.each_with_index.map { |mes, i| [mes, i + 1] }
   end
+
+  def periodo_financeiro_exibido(data_referencia)
+    hoje = Date.today
+    data_base = (data_referencia.year == hoje.year && data_referencia.month == hoje.month) ? hoje : data_referencia.end_of_month
+    data_base.strftime('%d/%m/%Y')
+  end
 end

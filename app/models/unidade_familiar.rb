@@ -11,8 +11,12 @@ class UnidadeFamiliar < ApplicationRecord
     self.despesas.where(categoria: 'contas').order(dia_vencimento: :asc)
   end
 
-  def ultimos_gastos_lancados
+  def ultimos_gastos_lancados(periodo)
     self.despesas.where(categoria: 'gastos').order(created_at: :desc).limit(5)
+  end
+
+  def receita_total
+    usuarios.where(status: 'ativo').joins(:receitas).sum('receitas.valor')
   end
 
   private

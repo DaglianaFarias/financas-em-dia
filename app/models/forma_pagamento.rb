@@ -21,4 +21,13 @@ class FormaPagamento < ApplicationRecord
   scope :por_data_referencia, ->(data_referencia_param) {
     where(data_gasto: data_referencia_param.at_beginning_of_month..data_referencia_param.at_end_of_month)
   }
+
+  def despesas_por_forma_de_pagamento(data_inicio, data_fim, unidade_familiar)
+    despesas.includes(:orcamento).where(data_gasto: data_inicio..data_fim)
+            .where(orcamentos: { unidade_familiar_id: unidade_familiar.id })
+  end
+
+  def despesas_no_periodo(data_inicio, data_fim)
+    despesas.includes(:orcamento).where(categoria: 'gastos', data_gasto: data_inicio..data_fim)
+  end
 end

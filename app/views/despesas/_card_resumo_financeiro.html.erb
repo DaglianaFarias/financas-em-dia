@@ -2,7 +2,7 @@
   <div class="card-body">
     <h5 class="card-title mb-4 d-flex align-items-center">
       <i class="fa-solid fa-scale-balanced text-primary me-2"></i>
-      Situação Financeira - <strong class="ms-1"><%= Date.today.strftime('%d/%m/%Y') %></strong>
+      Situação Financeira - <strong class="ms-1"><%= periodo_financeiro_exibido(@data_referencia) %></strong>
     </h5>
 
     <div class="mb-3">

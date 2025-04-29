@@ -1,14 +1,15 @@
 <%= simple_form_for :filtro_periodo, url: root_path, method: :get, html: { class: 'card mb-4' } do |f| %>
   <div class="card-body">
-    <h5 class="card-title mb-3">Filtrar por Período</h5>
-
+    <h6 class="card-title mb-3">
+      <strong>Filtrar por período</strong>
+    </h6>
     <div class="row align-items-end">
       <div class="col-md-4">
-        <%= f.input :mes_periodo, label: 'Mês', collection: select_meses, include_blank: 'Selecione o mês', input_html: { class: 'form-control' } %>
+        <%= f.input :mes_periodo, label: 'Mês', collection: select_meses, include_blank: 'Selecione o mês', input_html: { class: 'form-control' }, selected: @data_referencia.month %>
       </div>
 
       <div class="col-md-4">
-        <%= f.input :ano_periodo, label: 'Ano', collection: (2020..2025).to_a.reverse, include_blank: 'Selecione o ano', input_html: { class: 'form-control' } %>
+        <%= f.input :ano_periodo, label: 'Ano', collection: (2020..2025).to_a.reverse, include_blank: 'Selecione o ano', input_html: { class: 'form-control' }, selected: @data_referencia.year %>
       </div>
 
       <div class="col-md-2">
