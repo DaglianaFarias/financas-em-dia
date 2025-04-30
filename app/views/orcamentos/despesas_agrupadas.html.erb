@@ -1,5 +1,9 @@
 <%= render 'despesas/card_categoria_parcelas' %>
-
+<div class="mb-3 mt-3 text-end">
+  <button id="expandir-todos" class="btn btn-outline-secondary btn-sm">
+    <i class="fa-solid fa-eye me-1"></i> Exibir todas as despesas
+  </button>
+</div>
 <% @despesas_orcamentos.each_slice(2) do |par_orcamentos| %>
   <div class="row">
     <% par_orcamentos.each do |orcamento| %>
@@ -20,10 +24,9 @@
             <%= barra_de_progresso(orcamento.valorEstimado, valorGasto) %>
           </div>
           
-
           <div class="card-body p-0">
             <% if orcamento.despesas.present? %>
-              <table class="table table-hover mb-0 align-middle">
+              <table class="table table-hover mb-0 align-middle collapse tabela-despesas" id="tabela-despesas-<%= orcamento.id %>">
                 <thead class="bg-light text-muted small">
                   <tr>
                     <th class="ps-4">Descrição</th>
@@ -66,3 +69,25 @@
     <% end %>
   </div>
 <% end %>
+<script>
+  document.addEventListener("turbo:load", function () {
+    document.body.addEventListener('click', function (e) {
+      const expandirButton = e.target.closest('#expandir-todos');
+      if (!expandirButton) return;
+
+      const allCollapses = document.querySelectorAll('.tabela-despesas');
+      let expanded = expandirButton.getAttribute("data-expanded") === "true";
+
+      expanded = !expanded;
+      expandirButton.setAttribute("data-expanded", expanded);
+
+      allCollapses.forEach(function (el) {
+        el.classList.toggle('show', expanded);
+      });
+
+      expandirButton.innerHTML = expanded
+        ? '<i class="fa-solid fa-eye-slash me-1"></i> Recolher todas as despesas'
+        : '<i class="fa-solid fa-eye me-1"></i> Exibir todas as despesas';
+    });
+  });
+</script>

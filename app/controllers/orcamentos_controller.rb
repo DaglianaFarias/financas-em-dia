@@ -44,7 +44,7 @@ class OrcamentosController < ApplicationController
   end
 
   def despesas_agrupadas
-    @despesas_orcamentos = @unidade_familiar.orcamentos.includes(:despesas)
+    @despesas_orcamentos = @unidade_familiar.orcamentos.order(:categoria).includes(:despesas)
     @compras_parceladas = @unidade_familiar.despesas.where(categoria: 'parcelas')
   end
 

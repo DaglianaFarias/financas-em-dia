@@ -30,4 +30,17 @@ class FormaPagamento < ApplicationRecord
   def despesas_no_periodo(data_inicio, data_fim)
     despesas.includes(:orcamento).where(categoria: 'gastos', data_gasto: data_inicio..data_fim)
   end
+
+  def definir_periodo_referencia_pagamento(data_referencia)
+    if self.cartao_credito?
+      melhor_dia_compra = self.melhor_dia_compra&.to_i
+      data_inicio = data_referencia.change(day: melhor_dia_compra) << 1 rescue (data_referencia.beginning_of_month << 1).change(day: melhor_dia_compra)
+      data_fim = data_referencia.change(day: melhor_dia_compra - 1) rescue data_referencia.end_of_month.change(day: melhor_dia_compra)
+    else
+      data_inicio = data_referencia.beginning_of_month
+      data_fim = data_referencia.end_of_month
+    end
+  
+    [data_inicio, data_fim]
+  end
 end

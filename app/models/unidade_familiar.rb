@@ -19,6 +19,22 @@ class UnidadeFamiliar < ApplicationRecord
     usuarios.where(status: 'ativo').joins(:receitas).sum('receitas.valor')
   end
 
+  def despesas_no_periodo(data_referencia)
+    despesas_no_periodo = []
+
+    usuarios&.each do |usuario|
+      next if usuario.forma_pagamentos.blank?
+
+      usuario.forma_pagamentos.each do |forma_pagamento|
+        data_inicio, data_fim = forma_pagamento.definir_periodo_referencia_pagamento(data_referencia)
+
+        despesas_no_periodo.concat(forma_pagamento.despesas_no_periodo(data_inicio, data_fim))
+      end
+    end
+
+    despesas_no_periodo
+  end
+
   private
 
   def definir_status_padrao
