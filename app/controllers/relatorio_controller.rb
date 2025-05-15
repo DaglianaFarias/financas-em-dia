@@ -5,7 +5,7 @@ class RelatorioController < ApplicationController
 
   def visao_geral
     @despesa_total_categoria_gastos = 0
-    @despesas_agrupadas = Hash.new { |hash, key| hash[key] = [] }
+    @despesas_agrupadas_orcamentos = Hash.new { |hash, key| hash[key] = [] }
     @totais_por_orcamento = nil
     @ultimos_gastos_lancados = nil
   
@@ -16,7 +16,9 @@ class RelatorioController < ApplicationController
     despesas = @unidade_familiar.despesas_no_periodo(@data_referencia)
 
     @despesa_total_categoria_gastos = despesas.sum { |despesa| despesa.valor }
-    @despesas_agrupadas = despesas.group_by(&:orcamento)
+    @despesas_agrupadas_orcamentos = despesas.group_by(&:orcamento)
+    @despesas_agrupadas_forma_pagamento = despesas.group_by(&:forma_pagamento)
+
     @ultimos_gastos_lancados = despesas.sort_by(&:created_at)&.reverse&.first(5)
 
     @total_contas_previstas = valor_total_contas + @unidade_familiar.orcamentos.sum(:valorEstimado)
@@ -33,12 +35,16 @@ class RelatorioController < ApplicationController
         totais[orcamento] ||= 0
       end
     end
+
+    @contas_pendentes = @despesas_categoria_contas.count do |conta|
+      !conta.possui_historico_pagamento?(@data_referencia)
+    end
   end
 
   private
   
   def calcular_totais_por_orcamento
-    @despesas_agrupadas.transform_values { |despesas| despesas.sum(&:valor) }
+    @despesas_agrupadas_orcamentos.transform_values { |despesas| despesas.sum(&:valor) }
   end
 
   def somar_contas_pagas(data_referencia)

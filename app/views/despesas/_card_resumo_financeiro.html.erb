@@ -1,9 +1,9 @@
 <div class="card shadow-sm border-0 mb-4">
   <div class="card-body">
-    <h5 class="card-title mb-4 d-flex align-items-center">
+    <h6 class="card-title mb-4 d-flex align-items-center">
       <i class="fa-solid fa-scale-balanced text-primary me-2"></i>
       Situação Financeira - <strong class="ms-1"><%= periodo_financeiro_exibido(@data_referencia) %></strong>
-    </h5>
+    </h6>
 
     <div class="mb-3">
       <i class="fa-solid fa-wallet text-muted me-1"></i>
@@ -19,12 +19,14 @@
     <div class="mb-3">
       <i class="fa-solid fa-receipt text-muted me-1"></i>
       <strong>Gastos:</strong>
-      R$ <%= number_to_currency(@despesa_total || 0, unit: "", separator: ",", delimiter: ".", precision: 2) %>
-      <i class="fa-solid fa-circle-question text-secondary ms-1"
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        title="Contas pendentes não são incluídas na soma.">
-      </i>
+      <span class="text-danger">
+        R$ <%= number_to_currency(@despesa_total || 0, unit: "", separator: ",", delimiter: ".", precision: 2) %>
+        <i class="fa-solid fa-circle-question text-secondary ms-1"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Contas pendentes não são incluídas na soma.">
+        </i>
+      </span>
     </div>
 
     <% valor_saldo = (@total_contas_previstas - @despesa_total) || 0 %>
