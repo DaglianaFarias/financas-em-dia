@@ -49,7 +49,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = { from: 'dagliana.farias14@gmail.com' }
+  config.action_mailer.default_options = { from: 'financasemdia@gestao.com' }
   config.action_mailer.default_url_options = { host: "localhost"}
 
   # Make template changes take effect immediately.

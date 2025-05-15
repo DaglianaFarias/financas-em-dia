@@ -1,7 +1,7 @@
 class UnidadeFamiliar < ApplicationRecord
   has_many :usuarios, dependent: :destroy
-  has_many :orcamentos
-  has_many :despesas
+  has_many :orcamentos, dependent: :destroy
+  has_many :despesas, dependent: :destroy
 
   after_initialize :definir_status_padrao, if: :new_record?
 

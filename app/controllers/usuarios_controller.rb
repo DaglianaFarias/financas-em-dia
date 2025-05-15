@@ -37,11 +37,12 @@ class UsuariosController < ApplicationController
   end
 
   def destroy
-    @usuario.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to usuarios_path, status: :see_other, notice: "Usuario was successfully destroyed." }
-      format.json { head :no_content }
+    if @usuario.destroy!
+      if current_usuario.administrador?
+        redirect_to unidade_familiar_path(@usuario.unidade_familiar), status: :see_other, notice: "Usuário excluído com sucesso!"
+      else
+        redirect_to usuarios_path, status: :see_other, notice: "Usuário excluído com sucesso!"
+      end
     end
   end
 
