@@ -56,10 +56,14 @@ module DespesasHelper
   end
 
   def valor_total_parcelas(despesas)
+    return 0 if despesas.blank?
+
     despesas.sum { |despesa| valor_total_despesa_parcelada(despesa) }
   end
 
   def valor_faltante_a_pagar(despesas)
+    return 0 if despesas.blank?
+
     despesas.sum do |despesa|
       parcelas_faltantes = despesa.quantidade_parcelas - parcela_atual_calculada(despesa)
       parcelas_faltantes * despesa.valor

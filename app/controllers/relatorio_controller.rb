@@ -36,7 +36,7 @@ class RelatorioController < ApplicationController
       end
     end
 
-    @contas_pendentes = @despesas_categoria_contas.count do |conta|
+    @contas_pendentes = @despesas_categoria_contas.select do |conta|
       !conta.possui_historico_pagamento?(@data_referencia)
     end
   end
